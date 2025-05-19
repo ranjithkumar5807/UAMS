@@ -1,0 +1,52 @@
+# Ignore Maven/Gradle build outputs
+**/target/
+**/build/
+
+# IntelliJ IDEA / STS / Eclipse files
+.idea/
+*.iml
+*.ipr
+*.iws
+.project
+.classpath
+.settings/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Environment files
+.env
+.env.*
+
+# Node.js (if using front-end microservices)
+**/node_modules/
+
+# VS Code
+.vscode/
+
+# Package-lock and yarn-lock (for front-end services)
+package-lock.json
+yarn.lock
+
+# Docker
+*.local
+docker-compose.override.yml
+
+# Spring Boot config override
+application-dev.properties
+application-prod.properties
+application-test.properties
+
+# Git metadata
+.git/
+
+# Others
+*.bak
+*.swp
+
+
+.metadata
