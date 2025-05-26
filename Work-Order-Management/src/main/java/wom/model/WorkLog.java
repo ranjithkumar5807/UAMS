@@ -24,7 +24,7 @@ public class WorkLog {
 	
 	@ManyToOne
 	@JoinColumn(name="technician_id")
-	Technician TechnicianId;
+	String TechnicianId;
 	
 	@ManyToOne
 	@JoinColumn(name="workorder_id")
