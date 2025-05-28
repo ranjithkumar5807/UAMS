@@ -10,12 +10,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import arhm.model.Asset;
 import arhm.service.AssetService;
 
 
-@Controller
+@RestController
 @RequestMapping("/api/assets")
 public class AssetController {
 	
@@ -26,7 +27,10 @@ public class AssetController {
 	public Asset createAsset(@RequestBody Asset asset) {
 		return assetService.createAsset(asset);
 	}
-	
+	@GetMapping("/test")
+	public String Test() {
+		return "testing under process";
+	}
 	@GetMapping
 	public List<Asset> getAllAssets(){
 		return assetService.getAllAssets();

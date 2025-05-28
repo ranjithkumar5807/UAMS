@@ -1,8 +1,18 @@
 server:
-  port: 8080
+  port: 8090
 
- 
+
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: Asset-Registration-Hierarchy-Management
+          uri: http://localhost:8081/
+          predicates:
+          - Path=/api/assets/**
+

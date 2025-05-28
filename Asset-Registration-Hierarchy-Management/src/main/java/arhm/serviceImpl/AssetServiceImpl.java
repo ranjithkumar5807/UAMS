@@ -3,11 +3,12 @@ package arhm.serviceImpl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import arhm.model.Asset;
 import arhm.repository.AssetRepository;
 import arhm.service.AssetService;
-
+@Service
 public class AssetServiceImpl implements AssetService {
 	
 	@Autowired
