@@ -16,7 +16,7 @@ import lombok.*;
 public class WorkOrder {
 	
 	@Id
-	String WorkOrderId;
+	long WorkOrderId;
 	@OneToMany(mappedBy="workorder", cascade = CascadeType.ALL)
 	String PlanId;
 	Date ScheduledDate;

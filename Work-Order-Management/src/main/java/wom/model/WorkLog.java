@@ -18,13 +18,12 @@ import lombok.NoArgsConstructor;
 public class WorkLog {
 	
 	@Id
-	String logID;
+	long logID;
 	String StartTime;
 	String EndTime;
 	
-	@ManyToOne
-	@JoinColumn(name="technician_id")
-	String TechnicianId;
+	
+	Long TechnicianId;
 	
 	@ManyToOne
 	@JoinColumn(name="workorder_id")
