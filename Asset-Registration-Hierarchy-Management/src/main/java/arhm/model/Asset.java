@@ -10,15 +10,15 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
+//import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+//import lombok.Setter;
 
 
 @Entity
 @Data
-@Getter
-@Setter
+//@Getter
+//@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Asset {

@@ -3,14 +3,14 @@ package wom.serviceImpl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 //import arhm.model.Asset;
 import wom.model.WorkOrder;
 import wom.repository.WorkOrderRepository;
 import wom.service.WorkOrderService;
 
-
-
+@Service
 public class WorkOrderServiceImpl implements WorkOrderService{
 
 	@Autowired
