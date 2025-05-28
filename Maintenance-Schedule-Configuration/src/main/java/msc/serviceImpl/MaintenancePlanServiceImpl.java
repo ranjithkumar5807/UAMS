@@ -9,6 +9,7 @@ import msc.model.MaintenancePlan;
 import msc.repository.MaintenancePlanRepository;
 import msc.service.MaintenancePlanService;
 import msc.clients.AssetClient;
+import msc.dto.AssetDTO;
 import msc.exception.ResourceNotFoundException;
 
 @Service
