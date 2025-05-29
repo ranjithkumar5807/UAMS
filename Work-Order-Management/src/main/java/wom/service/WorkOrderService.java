@@ -10,5 +10,6 @@ public interface WorkOrderService {
 	WorkOrder createWorkOrder(WorkOrder workOrder);
 	List<WorkOrder> getWorkOrdersByStatus(String Status);
 	WorkOrder updateStatus(long WorkOrderId, String Status) throws Exception;
+	List<WorkOrder> getAllWorkOrders();
 
 }

@@ -13,18 +13,18 @@ import wom.model.WorkLog;
 import wom.serviceImpl.WorkLogServiceImpl;
 
 @RestController
-@RequestMapping
+@RequestMapping("/api/work-orders")
 public class WorkLogController {
 	
 	@Autowired
 	WorkLogServiceImpl workLogService;
 	
-	@PostMapping("/worklog")
+	@PostMapping("/worklogs")
 	public WorkLog createWorkLog(@RequestBody WorkLog workLog) {
 		return workLogService.createWorkLog(workLog);
 	}
 	
-	@GetMapping("/worklog")
+	@GetMapping("/worklogs")
 	public List<WorkLog> getAllWorkLogs(){
 		return workLogService.getAllWorkLogs();
 	}

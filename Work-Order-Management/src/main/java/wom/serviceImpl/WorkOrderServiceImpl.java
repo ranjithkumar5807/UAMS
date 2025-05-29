@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import wom.model.WorkLog;
 //import arhm.model.Asset;
 import wom.model.WorkOrder;
 import wom.repository.WorkOrderRepository;
@@ -38,8 +39,13 @@ public class WorkOrderServiceImpl implements WorkOrderService{
 			throw new Exception("WorkOrder not found");
 		}
 		workOrder.setStatus(status);
-		return repo.save(workOrder);
-		
+		return repo.save(workOrder);	
+	}
+	
+	@Override
+	public List<WorkOrder> getAllWorkOrders() {
+		// TODO Auto-generated method stub
+		return repo.findAll();
 	}
 
 

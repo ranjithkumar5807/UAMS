@@ -15,29 +15,34 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import wom.model.WorkLog;
 import wom.model.WorkOrder;
 import wom.serviceImpl.WorkOrderServiceImpl;
 
 @RestController
-@RequestMapping
+@RequestMapping("/api/work-orders")
 public class WorkOrderController {
 	
 	@Autowired
 	WorkOrderServiceImpl workOrderService;
 	
-	@PostMapping("/workorders")
+	@PostMapping
 	public WorkOrder createOrder(@RequestBody WorkOrder workOrder) {
 		return workOrderService.createWorkOrder(workOrder);
 	}
 	
-
-	@GetMapping("/workorders")
+	@GetMapping
+	public List<WorkOrder> getAllWorkLogs(){
+		return workOrderService.getAllWorkOrders();
+	}
+	
+	@GetMapping("/bystatus")
 	public List<WorkOrder> getWorkOrdersByStatus(@RequestParam String status) {
 		
 		return workOrderService.getWorkOrdersByStatus(status);
 	}
 	
-	@PatchMapping("/work-orders/{id}/{status}")
+	@PatchMapping("/{id}/{status}")
 	public WorkOrder updateStatus(@PathVariable long id, @PathVariable String status) throws Exception {
 		return workOrderService.updateStatus(id,status);
 	}
