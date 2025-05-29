@@ -1,6 +1,8 @@
 package arhm.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,6 +30,7 @@ public class Location {
 
 	@OneToOne
     @JoinColumn(name = "asset_id")
+	@JsonBackReference
     private Asset asset;
 }
 

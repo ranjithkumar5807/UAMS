@@ -3,6 +3,7 @@ package arhm.service;
 import java.util.List;
 
 import arhm.model.Asset;
+import arhm.model.Location;
 
 public interface AssetService {
 	
@@ -12,8 +13,9 @@ public interface AssetService {
 
 	    List<Asset> getAllAssets();
 
-	    List<Asset> getAssetsByRegion(String region);
+      List<Asset> getAssetsByRegion(String region);
 
 	    Asset getAssetById(Long assetId);
+	    Location registerLocation(Long assetId,Location location);
 
 }

@@ -8,7 +8,7 @@ import arhm.model.Location;
 @Repository
 public interface LocationRepository extends JpaRepository<Location,Long>{
 	
-	Location findByAsset_AssetId(Long assetId);
+	//Location findByAsset_AssetId(Long assetId);
 
 }
 

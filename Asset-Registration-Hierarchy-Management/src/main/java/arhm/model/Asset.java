@@ -2,6 +2,8 @@ package arhm.model;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,11 +29,12 @@ public class Asset {
 	private Long assetId;
 	private String name;
 	private String type;
-	private LocalDate InstallationDate;
+	private LocalDate installationDate;
 	private String status;
 	
 
 	@OneToOne(mappedBy = "asset", cascade = CascadeType.ALL)
+	@JsonIdentityReference
 	private Location location;
 
 }
