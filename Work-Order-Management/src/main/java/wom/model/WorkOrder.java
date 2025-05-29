@@ -16,9 +16,9 @@ import lombok.*;
 public class WorkOrder {
 	
 	@Id
-	long workOrderId;
-	long planId;
-	Date scheduledDate;
-	String status;
+	private long workOrderId;
+	private long planId;
+	private Date scheduledDate;
+	private String status;
 
 }

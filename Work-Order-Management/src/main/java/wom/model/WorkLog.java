@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,10 +18,13 @@ import lombok.NoArgsConstructor;
 public class WorkLog {
 	@Id
 //	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	long workLogId;
-	String startTime;
-	String endTime;
-	long technicianId;
-	long workOrderId;
+	private long workLogId;
+	private String startTime;
+	private String endTime;
+	private long technicianId;
+	
+	@ManyToOne
+	@JoinColumn(name="workOrderId")
+	WorkOrder workOrder;
 	
 }

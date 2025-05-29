@@ -37,7 +37,7 @@ public class WorkOrderController {
 		return workOrderService.getWorkOrdersByStatus(status);
 	}
 	
-	@PatchMapping("/work-orders/{id}/status/{status}")
+	@PatchMapping("/work-orders/{id}/{status}")
 	public WorkOrder updateStatus(@PathVariable long id, @PathVariable String status) throws Exception {
 		return workOrderService.updateStatus(id,status);
 	}

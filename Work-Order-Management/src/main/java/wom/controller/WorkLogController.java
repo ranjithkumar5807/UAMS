@@ -24,7 +24,7 @@ public class WorkLogController {
 		return workLogService.createWorkLog(workLog);
 	}
 	
-	@GetMapping("/worklogs")
+	@GetMapping("/worklog")
 	public List<WorkLog> getAllWorkLogs(){
 		return workLogService.getAllWorkLogs();
 	}
