@@ -1,5 +1,7 @@
 package msc.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -9,8 +11,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name="taskList")
 public class Task {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)	
@@ -21,7 +25,10 @@ public class Task {
     
     @ManyToOne
     @JoinColumn(name = "plan_id")
-    @JsonIgnoreProperties
+    @JsonIgnoreProperties("taskList")
+//    @JsonBackReference
+//    @JsonManagedReference
+//    @JsonIgnore
     private MaintenancePlan maintenancePlan;
 
     public Long getTaskId() {
@@ -42,7 +49,7 @@ public class Task {
 	public void setEstimatedHours(int estimatedHours) {
 		this.estimatedHours = estimatedHours;
 	}
-	public MaintenancePlan getMaintenance() {
+	public MaintenancePlan getMaintenancePlan() {
 		return maintenancePlan;
 	}
 	public void setMaintenancePlan(MaintenancePlan maintenancePlan) {

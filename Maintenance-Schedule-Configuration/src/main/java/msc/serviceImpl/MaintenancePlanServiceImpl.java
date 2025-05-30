@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import msc.model.MaintenancePlan;
-import msc.model.Task;
 import msc.repository.MaintenancePlanRepository;
 import msc.service.MaintenancePlanService;
 import msc.clients.AssetClient;
@@ -18,40 +17,21 @@ public class MaintenancePlanServiceImpl implements MaintenancePlanService {
 
     @Autowired
     private MaintenancePlanRepository maintenancePlanRepository;
+    @Autowired
+    private AssetClient assetClient;
+    
 
     @Override
-    public MaintenancePlan createPlan(MaintenancePlan plan) {
+    public MaintenancePlan createPlan(MaintenancePlan plan,Long assetId) {
+        AssetDTO asset = assetClient.getAssetById(assetId);
+        if (asset == null) {
+            throw new ResourceNotFoundException("Asset not found");
+        }
+        plan.setAssetId(assetId);
         return maintenancePlanRepository.save(plan);
     }
     
-//    @Autowired
-//    private AssetClient assetClient;
-//
-//    @Override
-//    public MaintenancePlan createPlan(MaintenancePlan plan) {
-//        AssetDTO asset = assetClient.getAssetById(plan.getAssetId());
-//        if (asset == null) {
-//            throw new ResourceNotFoundException("Asset not found");
-//        }
-//        return maintenancePlanRepository.save(plan);
-//    }
-    
-//    @Override
-//    public MaintenancePlan createPlan(MaintenancePlan plan) {
-//        AssetDTO asset = assetClient.getAssetById(plan.getAssetId());
-//        if (asset == null) {
-//            throw new ResourceNotFoundException("Asset not found");
-//        }
-//
-//        // Link each task to the plan
-//        if (plan.getTaskList() != null) {
-//            for (Task task : plan.getTaskList()) {
-//                task.setMaintenancePlan(plan);
-//            }
-//        }
-//
-//        return maintenancePlanRepository.save(plan);
-//    }
+   
 
 
 
@@ -83,6 +63,11 @@ public class MaintenancePlanServiceImpl implements MaintenancePlanService {
     @Override
     public List<MaintenancePlan> getAllPlans() {
         return maintenancePlanRepository.findAll();
+    }
+    
+    @Override
+    public void deleteAllPlans() {
+    	maintenancePlanRepository.deleteAll();
     }
 }
 

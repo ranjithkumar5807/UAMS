@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import msc.dto.AssetDTO;
 
-@FeignClient(name = "asset-service", url = "http://ASSET-SERVICE")
+@FeignClient(name = "ASSET-REGISTRATION-HIERARCHY-MANAGMENT")
 public interface AssetClient {
 
     @GetMapping("/api/assets/{id}")

@@ -2,6 +2,7 @@ package msc.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
@@ -11,9 +12,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 @Entity
-
+@Table(name="maintenancePlan")
 public class MaintenancePlan {
 	
 	@Id
@@ -22,8 +24,10 @@ public class MaintenancePlan {
 	private Long assetId;
 	private String frequency; 
 	
-	@OneToMany(mappedBy = "maintenancePlan", cascade = CascadeType.ALL)
-	@JsonIgnoreProperties
+	@OneToMany(mappedBy = "maintenancePlan", cascade = CascadeType.ALL, orphanRemoval=true)
+	@JsonIgnoreProperties("maintenancePlan")
+//	@JsonManagedReference
+//	@JsonBackReference
 	private List<Task> taskList;
 	
 	
@@ -50,6 +54,11 @@ public class MaintenancePlan {
 	}
 	public void setTaskList(List<Task> taskList) {
 		this.taskList = taskList;
+		if(taskList!=null) {
+			for(Task task:taskList) {
+				task.setMaintenancePlan(this);
+			}
+		}
 	}
 	
 }

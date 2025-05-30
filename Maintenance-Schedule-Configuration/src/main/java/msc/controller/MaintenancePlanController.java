@@ -19,8 +19,8 @@ public class MaintenancePlanController {
     private MaintenancePlanServiceImpl maintenancePlanServiceImpl;
 
     @PostMapping
-    public MaintenancePlan createPlan(@RequestBody MaintenancePlan plan) {
-        return maintenancePlanServiceImpl.createPlan(plan);
+    public MaintenancePlan createPlan(@RequestBody MaintenancePlan plan,@RequestParam Long assetId) {
+        return maintenancePlanServiceImpl.createPlan(plan,assetId);
     }
 
     @GetMapping
@@ -46,6 +46,11 @@ public class MaintenancePlanController {
     @DeleteMapping("/delete")
     public void deleteMaintenancePlan(@RequestParam Long id) {
     	maintenancePlanServiceImpl.deletePlan(id);
+    }
+    
+    @DeleteMapping("/deleteAll")
+    public void deleteAllMaintenancePlans() {
+    	maintenancePlanServiceImpl.deleteAllPlans();
     }
 }
 
