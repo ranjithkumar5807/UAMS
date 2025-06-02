@@ -18,7 +18,7 @@ import msc.model.Task;
 import msc.serviceImpl.TaskServiceImpl;
 
 @RestController
-@RequestMapping("/api/maintenance-tasks")
+@RequestMapping("/api/maintenance-plans/tasks")
 public class TaskController {
 
 	@Autowired
