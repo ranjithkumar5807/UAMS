@@ -17,7 +17,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class WorkLog {
 	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long workLogId;
 	private String startTime;
 	private String endTime;
@@ -25,6 +24,6 @@ public class WorkLog {
 	
 	@ManyToOne
 	@JoinColumn(name="workOrderId")
-	WorkOrder workOrder;
+	private WorkOrder workOrder;
 	
 }

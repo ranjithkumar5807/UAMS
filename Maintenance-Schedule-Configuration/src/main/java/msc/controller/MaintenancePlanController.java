@@ -33,10 +33,10 @@ public class MaintenancePlanController {
         return maintenancePlanServiceImpl.getAllPlans();
     }
     
-//    @GetMapping("/get")
-//    public String getPlans() {
-//        return "Welcome";
-//    }
+    @GetMapping("/{id}")
+    public MaintenancePlan getPlans(@PathVariable long id ) {
+        return maintenancePlanServiceImpl.getPlanById(id);
+    }
 
     @PutMapping("/{id}")
     public  MaintenancePlan updatePlan(@PathVariable Long id, @RequestBody MaintenancePlan plan) {

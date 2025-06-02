@@ -7,9 +7,9 @@ import wom.model.WorkOrder;
 public interface WorkOrderService {
 
 	
-	WorkOrder createWorkOrder(WorkOrder workOrder);
+	WorkOrder createWorkOrder(WorkOrder workOrder, long planId) throws Exception;
 	List<WorkOrder> getWorkOrdersByStatus(String Status);
-	WorkOrder updateStatus(long WorkOrderId, String Status) throws Exception;
+	WorkOrder updateStatus(long WorkOrderId, WorkOrder workOrder) throws Exception;
 	List<WorkOrder> getAllWorkOrders();
 
 }

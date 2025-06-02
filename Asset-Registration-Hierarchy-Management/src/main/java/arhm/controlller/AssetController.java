@@ -26,11 +26,12 @@ public class AssetController {
 	@Autowired
 	private AssetService assetService;
 	
+//	
+//	@GetMapping("/test")
+//	public String result() {
+//		return "I got it";
+//	}
 	
-	@GetMapping("/test")
-	public String result() {
-		return "I got it";
-	}
 	@PostMapping
 	public Asset createAsset(@RequestBody Asset asset) {
 		return assetService.createAsset(asset);

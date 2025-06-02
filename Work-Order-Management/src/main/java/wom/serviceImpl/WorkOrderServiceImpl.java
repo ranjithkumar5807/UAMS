@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import wom.clients.PlanClient;
+import wom.dto.PlanDTO;
 import wom.model.WorkLog;
 //import arhm.model.Asset;
 import wom.model.WorkOrder;
@@ -16,10 +18,18 @@ public class WorkOrderServiceImpl implements WorkOrderService{
 
 	@Autowired
 	private WorkOrderRepository repo;
+	
+	@Autowired
+	private PlanClient planClient;
 
 
 	@Override
-	public WorkOrder createWorkOrder(WorkOrder workOrder) {
+	public WorkOrder createWorkOrder(WorkOrder workOrder, long planId) throws Exception {
+		PlanDTO plan= planClient.getPlanById(planId);
+		if(plan ==null){
+			throw new Exception("Maintainance Plan not found");
+		}
+		workOrder.setPlanId(planId);
 		return repo.save(workOrder);
 	}
 
@@ -32,14 +42,15 @@ public class WorkOrderServiceImpl implements WorkOrderService{
 	}
 
 	@Override
-	public WorkOrder updateStatus(long WorkOrderId, String status) throws Exception {
+	public WorkOrder updateStatus(long workOrderId, WorkOrder workOrder) throws Exception {
 		// TODO Auto-generated method stub
-		WorkOrder workOrder= repo.findById(WorkOrderId).orElse(null);
-		if (workOrder==null) {
+		WorkOrder existingWorkOrder= repo.findById(workOrderId).orElse(null);
+		if (existingWorkOrder==null) {
 			throw new Exception("WorkOrder not found");
 		}
-		workOrder.setStatus(status);
-		return repo.save(workOrder);	
+		existingWorkOrder.setStatus(workOrder.getStatus());
+
+		return repo.save(existingWorkOrder);	
 	}
 	
 	@Override

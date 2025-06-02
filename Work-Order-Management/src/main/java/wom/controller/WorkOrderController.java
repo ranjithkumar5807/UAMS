@@ -27,8 +27,8 @@ public class WorkOrderController {
 	WorkOrderServiceImpl workOrderService;
 	
 	@PostMapping
-	public WorkOrder createOrder(@RequestBody WorkOrder workOrder) {
-		return workOrderService.createWorkOrder(workOrder);
+	public WorkOrder createOrder(@RequestBody WorkOrder workOrder, @RequestParam long planId)  throws Exception {
+		return workOrderService.createWorkOrder(workOrder, planId);
 	}
 	
 	@GetMapping
@@ -42,8 +42,8 @@ public class WorkOrderController {
 		return workOrderService.getWorkOrdersByStatus(status);
 	}
 	
-	@PatchMapping("/{id}/{status}")
-	public WorkOrder updateStatus(@PathVariable long id, @PathVariable String status) throws Exception {
-		return workOrderService.updateStatus(id,status);
+	@PutMapping("/{id}")
+	public WorkOrder updateStatus(@PathVariable long id, @RequestBody WorkOrder workOrder) throws Exception {
+		 return workOrderService.updateStatus(id,workOrder);
 	}
 }
