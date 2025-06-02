@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import msc.model.MaintenancePlan;
 import msc.model.Task;
+import msc.service.TaskService;
 import msc.serviceImpl.TaskServiceImpl;
 
 @RestController
@@ -22,25 +23,25 @@ import msc.serviceImpl.TaskServiceImpl;
 public class TaskController {
 
 	@Autowired
-	private TaskServiceImpl taskServiceImpl;
+	private TaskService taskService;
 	
 	@PostMapping("/{planId}")
     public Task createPlan(@PathVariable Long planId, @RequestBody Task task) {
-        return taskServiceImpl.addTaskToPlan(planId, task);
+        return taskService.addTaskToPlan(planId, task);
     }
 	
 	@GetMapping
 	public List<Task> getTasksByPlanId(@RequestParam Long taskId) {
-        return taskServiceImpl.getTasksByPlanId(taskId);
+        return taskService.getTasksByPlanId(taskId);
     }
 	
 	@PutMapping("/{taskId}")
 	public Task updatePlan(@PathVariable Long taskId, @RequestBody Task task) {
-        return taskServiceImpl.updateTask(taskId, task);
+        return taskService.updateTask(taskId, task);
     } 
 	
 	@DeleteMapping("/delete")
     public void deleteMaintenancePlan(@RequestParam Long taskId) {
-    	taskServiceImpl.deleteTask(taskId);
+    	taskService.deleteTask(taskId);
     }
 }
