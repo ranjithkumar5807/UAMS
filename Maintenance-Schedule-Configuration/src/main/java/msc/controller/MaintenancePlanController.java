@@ -16,21 +16,21 @@ import msc.serviceImpl.MaintenancePlanServiceImpl;
 public class MaintenancePlanController {
 
     @Autowired
-    private MaintenancePlanServiceImpl maintenancePlanServiceImpl;
+    private MaintenancePlanService maintenancePlanService;
 
     @PostMapping
     public MaintenancePlan createPlan(@RequestBody MaintenancePlan plan,@RequestParam Long assetId) {
-        return maintenancePlanServiceImpl.createPlan(plan,assetId);
+        return maintenancePlanService.createPlan(plan,assetId);
     }
 
     @GetMapping
     public List<MaintenancePlan> getPlans(@RequestParam Long assetId) {
-        return maintenancePlanServiceImpl.getPlansByAssetId(assetId);
+        return maintenancePlanService.getPlansByAssetId(assetId);
     }
     
     @GetMapping("/getAll")
     public List<MaintenancePlan> getAllMaintenancePlans() {
-        return maintenancePlanServiceImpl.getAllPlans();
+        return maintenancePlanService.getAllPlans();
     }
     
     @GetMapping("/{id}")
@@ -40,17 +40,17 @@ public class MaintenancePlanController {
 
     @PutMapping("/{id}")
     public  MaintenancePlan updatePlan(@PathVariable Long id, @RequestBody MaintenancePlan plan) {
-        return maintenancePlanServiceImpl.updatePlan(id, plan);
+        return maintenancePlanService.updatePlan(id, plan);
     }
     
     @DeleteMapping("/delete")
     public void deleteMaintenancePlan(@RequestParam Long id) {
-    	maintenancePlanServiceImpl.deletePlan(id);
+    	maintenancePlanService.deletePlan(id);
     }
     
     @DeleteMapping("/deleteAll")
     public void deleteAllMaintenancePlans() {
-    	maintenancePlanServiceImpl.deleteAllPlans();
+    	maintenancePlanService.deleteAllPlans();
     }
 }
 
