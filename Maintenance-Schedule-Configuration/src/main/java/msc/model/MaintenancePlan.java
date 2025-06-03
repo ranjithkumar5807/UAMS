@@ -24,7 +24,7 @@ public class MaintenancePlan {
 	private Long assetId;
 	private String frequency; 
 	
-	@OneToMany(mappedBy = "maintenancePlan", cascade = CascadeType.ALL, orphanRemoval=true)
+	@OneToMany(mappedBy = "maintenancePlan", cascade = CascadeType.ALL)
 	@JsonIgnoreProperties("maintenancePlan")
 //	@JsonManagedReference
 //	@JsonBackReference
