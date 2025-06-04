@@ -10,7 +10,7 @@ import tat.service.AssignmentService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/assignments")
+@RequestMapping("/api/technicians/assignments")
 public class AssignmentController {
 
     @Autowired
@@ -18,7 +18,11 @@ public class AssignmentController {
 
     @PostMapping
     public Assignment assignTechnician(@RequestParam Long technicianId, @RequestParam Long workOrderId) {
+    	try {
         return assignmentService.assignTechnicianToWorkOrder(technicianId, workOrderId);
+    	}catch(Exception e) {
+    		return null;
+    	}
     }
 
     @GetMapping

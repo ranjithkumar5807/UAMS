@@ -21,7 +21,7 @@ public class TechnicianController {
         return technicianService.saveTechnician(technician);
     }
 
-    @GetMapping("region/{region}")
+    @GetMapping("/region/{region}")
     public List<Technician> getTechniciansByRegion(@PathVariable String region) {
         return technicianService.getTechniciansByRegion(region);
     }

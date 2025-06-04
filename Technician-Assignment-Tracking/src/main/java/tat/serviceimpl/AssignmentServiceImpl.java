@@ -4,6 +4,8 @@ package tat.serviceimpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import tat.client.WorkOrderClient;
+import tat.dto.WorkOrderDto;
 import tat.model.Assignment;
 import tat.model.Technician;
 import tat.repository.AssignmentRepository;
@@ -20,12 +22,20 @@ public class AssignmentServiceImpl implements AssignmentService {
 
     @Autowired
     private TechnicianRepository technicianRepository;
+    
+    @Autowired
+    private WorkOrderClient workOrderClient;
 
     @Override
-    public Assignment assignTechnicianToWorkOrder(Long technicianId, Long workOrderId) {
+    public Assignment assignTechnicianToWorkOrder(Long technicianId, Long workOrderId) throws Exception {
         Technician technician = technicianRepository.findById(technicianId)
                 .orElseThrow(() -> new RuntimeException("Technician not found"));
 
+        WorkOrderDto workOrderDto=workOrderClient.getWorkOrderById(workOrderId);
+        if(workOrderDto==null) {
+        	throw new Exception("Work Order not found");
+        }
+        
         Assignment assignment = new Assignment();
         assignment.setTechnician(technician);
         assignment.setWorkOrderId(workOrderId);
