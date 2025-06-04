@@ -35,7 +35,7 @@ public class MaintenancePlanController {
     
     @GetMapping("/{id}")
     public MaintenancePlan getPlans(@PathVariable long id ) {
-        return maintenancePlanServiceImpl.getPlanById(id);
+        return maintenancePlanService.getPlanById(id);
     }
 
     @PutMapping("/{id}")

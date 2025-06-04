@@ -3,10 +3,14 @@ package wom.serviceImpl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import jakarta.servlet.http.HttpServletRequest;
 import wom.clients.PlanClient;
 import wom.dto.PlanDTO;
+import wom.exception.PlanNotFoundException;
+import wom.exception.WorkOrderNotFoundException;
 import wom.model.WorkLog;
 //import arhm.model.Asset;
 import wom.model.WorkOrder;
@@ -24,29 +28,36 @@ public class WorkOrderServiceImpl implements WorkOrderService{
 
 
 	@Override
-	public WorkOrder createWorkOrder(WorkOrder workOrder, long planId) throws Exception {
+	public WorkOrder createWorkOrder(WorkOrder workOrder, long planId){
 		PlanDTO plan= planClient.getPlanById(planId);
+		
 		if(plan ==null){
-			throw new Exception("Maintainance Plan not found");
+			throw new PlanNotFoundException("Maintainance Plan not found with Id");
+		
 		}
 		workOrder.setPlanId(planId);
 		return repo.save(workOrder);
 	}
 
 	@Override
-	public List<WorkOrder> getWorkOrdersByStatus(String status) {
-		return repo.findByStatus(status);
-	
+	public List<WorkOrder> getWorkOrdersByStatus(String status){
+	    List<WorkOrder> workOrders = repo.findByStatus(status);
+	    
+	    if (workOrders.isEmpty()) {
+	       throw new WorkOrderNotFoundException("No workOrders with status");
+	    }
+	    
+	    return workOrders;
+	}	
 		//need to work on converting the optional type objects to list type
 		//return repo.findById(status);
-	}
 
 	@Override
-	public WorkOrder updateStatus(long workOrderId, WorkOrder workOrder) throws Exception {
+	public WorkOrder updateStatus(long workOrderId, WorkOrder workOrder) {
 		// TODO Auto-generated method stub
 		WorkOrder existingWorkOrder= repo.findById(workOrderId).orElse(null);
 		if (existingWorkOrder==null) {
-			throw new Exception("WorkOrder not found");
+			throw new WorkOrderNotFoundException("WorkOrder not found");
 		}
 		existingWorkOrder.setStatus(workOrder.getStatus());
 
@@ -59,7 +70,10 @@ public class WorkOrderServiceImpl implements WorkOrderService{
 		return repo.findAll();
 	}
 
-
+	public WorkOrder getWorkOrderById(Long workOrderId) {
+		// TODO Auto-generated method stub
+		return repo.findById(workOrderId).orElse(null);
+	}
 
 	
 

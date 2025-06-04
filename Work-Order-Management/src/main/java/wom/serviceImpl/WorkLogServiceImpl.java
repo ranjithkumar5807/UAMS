@@ -1,29 +1,51 @@
 package wom.serviceImpl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.netflix.discovery.converters.Auto;
+
+import wom.clients.TechnicianClient;
+import wom.dto.TechnicianDTO;
 import wom.model.WorkLog;
+import wom.model.WorkOrder;
 import wom.repository.WorkLogRepository;
+import wom.repository.WorkOrderRepository;
 import wom.service.WorkLogService;
 
 @Service
 public class WorkLogServiceImpl implements WorkLogService {
-
+	
 	@Autowired
-	WorkLogRepository repo;
+	WorkLogRepository wlrepo;
+	@Autowired
+	TechnicianClient technicianClient;
+	@Autowired
+	WorkOrderRepository worepo;
 	@Override
-	public WorkLog createWorkLog(WorkLog workLog) {
+	public WorkLog createWorkLog(WorkLog workLog,long workOrderId,  long technicianId){
 		
-		return repo.save(workLog);
+		WorkOrder workOrder = worepo.findById(workOrderId).orElse(null);
+	    TechnicianDTO technicianDTO = technicianClient.getTechnicianById(technicianId);
+	    if(workOrder == null) {
+	    	
+	    }
+	    if(technicianDTO == null)
+	    {
+	    	
+	    }
+	    workLog.setTechnicianId(technicianId);	
+	    workLog.setWorkOrder(workOrder);
+		return wlrepo.save(workLog);
 	}
 
 	@Override
 	public List<WorkLog> getAllWorkLogs() {
 		// TODO Auto-generated method stub
-		return repo.findAll();
+		return wlrepo.findAll();
 	}
 
 

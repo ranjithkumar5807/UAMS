@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import wom.exception.PlanNotFoundException;
 import wom.model.WorkLog;
 import wom.model.WorkOrder;
 import wom.serviceImpl.WorkOrderServiceImpl;
@@ -27,7 +28,8 @@ public class WorkOrderController {
 	WorkOrderServiceImpl workOrderService;
 	
 	@PostMapping
-	public WorkOrder createOrder(@RequestBody WorkOrder workOrder, @RequestParam long planId)  throws Exception {
+	public WorkOrder createOrder(@RequestBody WorkOrder workOrder, @RequestParam long planId) {
+		
 		return workOrderService.createWorkOrder(workOrder, planId);
 	}
 	
@@ -35,6 +37,12 @@ public class WorkOrderController {
 	public List<WorkOrder> getAllWorkLogs(){
 		return workOrderService.getAllWorkOrders();
 	}
+	
+	@GetMapping("/{workOrderId}")
+	public WorkOrder getWorkOrderById(@PathVariable Long workOrderId) {
+		return workOrderService.getWorkOrderById(workOrderId);
+	}
+ 
 	
 	@GetMapping("/bystatus")
 	public List<WorkOrder> getWorkOrdersByStatus(@RequestParam String status) {
