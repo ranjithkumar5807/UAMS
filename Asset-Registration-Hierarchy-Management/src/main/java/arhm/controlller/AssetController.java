@@ -49,12 +49,10 @@ public class AssetController {
 	
       
 	  @PutMapping("/{id}")
-      public Asset updateAssetById(@PathVariable("id") Long assetId,@RequestBody Asset asset)  {
-		 try {
+      public Asset updateAssetById(@PathVariable("id") Long assetId,@RequestBody Asset asset) throws Exception  {
+		 
     	 return assetService.updateAsset(assetId, asset);
-		 }catch(Exception e){
-			 return null;
-		 }
+		 
         }
 	  
 	  @GetMapping("/location")
@@ -64,7 +62,7 @@ public class AssetController {
 	  }
 	  
 	  @PostMapping("/location/{assetId}")
-	  public Location registerLocation(@PathVariable Long assetId,@RequestBody Location location) {
+	  public Location registerLocation(@PathVariable Long assetId,@RequestBody Location location)  {
 		  return assetService.registerLocation(assetId,location);
 	  }
 

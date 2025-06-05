@@ -3,7 +3,9 @@ package arhm.serviceImpl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import arhm.model.Asset;
 import arhm.model.Location;
@@ -24,16 +26,25 @@ public class AssetServiceImpl implements AssetService {
 		return assetRepository.save(asset);
 	}
 
+//	@Override
+//	public Asset updateAsset(Long assetId, Asset asset) throws Exception {
+//		
+//		Asset asset1= assetRepository.findById(assetId).orElse(null);
+//		if (asset1==null) {
+//			throw new Exception("Asset not found");
+//		}
+//		asset.setAssetId(assetId);
+//		return assetRepository.save(asset);
+//	}
+	
 	@Override
-	public Asset updateAsset(Long assetId, Asset asset) throws Exception {
-		
-		Asset asset1= assetRepository.findById(assetId).orElse(null);
-		if (asset1==null) {
-			throw new Exception("Asset not found");
-		}
-		asset.setAssetId(assetId);
-		return assetRepository.save(asset);
+	public Asset updateAsset(Long assetId, Asset asset) {
+	    Asset asset1 = assetRepository.findById(assetId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Asset not found"));
+	    
+	    asset.setAssetId(assetId);
+	    return assetRepository.save(asset);
 	}
+
 
 	@Override
 	public List<Asset> getAllAssets() {
@@ -45,7 +56,8 @@ public class AssetServiceImpl implements AssetService {
 	@Override
 	public Asset getAssetById(Long assetId) {
 		
-		return assetRepository.findById(assetId).orElse(null);
+		return assetRepository.findById(assetId)
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Asset not found"));
 	}
 
 	@Override
@@ -56,7 +68,10 @@ public class AssetServiceImpl implements AssetService {
 
 	@Override
 	public Location registerLocation(Long assetId, Location location) {
-		Asset asset=assetRepository.findById(assetId).orElse(null);
+		Asset asset=assetRepository.findById(assetId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Asset not found"));
+//		 if (asset == null) {
+//		        throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Asset not found");
+//		    }
 		location.setAsset(asset);
 		return locationRepository.save(location);
 		
