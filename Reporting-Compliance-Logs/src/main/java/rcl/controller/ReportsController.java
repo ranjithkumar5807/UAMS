@@ -15,6 +15,13 @@ public class ReportsController {
 	@Autowired
 	private ReportsService reportsService;
 	
+	
+	@GetMapping("/test")
+	public String result() {
+		return "I got it";
+	}
+	
+	
 	@GetMapping("/asset-history")
 	public ResponseEntity<?>  getAssetHistory(@RequestParam Long assetId) {
 		return ResponseEntity.ok(reportsService.getAssetMaintenanceHistory(assetId));

@@ -1,0 +1,20 @@
+<configuration>
+    <appender name="STARTUP_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/gateway.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/gateway.%d{yyyy-MM-dd_HH-mm-ss}.log</fileNamePattern>
+            <maxHistory>50</maxHistory> <!-- Keep last 10 startup logs -->
+        </rollingPolicy>
+        <encoder>
+            <pattern>
+			    %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - 
+			    [%X{requestId}] %msg%n
+			</pattern>
+
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="STARTUP_FILE"/>
+    </root>
+</configuration>

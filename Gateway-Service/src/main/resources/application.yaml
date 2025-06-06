@@ -15,12 +15,21 @@ spring:
           uri: http://localhost:8081/
           predicates:
           - Path=/api/assets/**
+        - id: Maintenance-Schedule-Configuration
+          uri: http://localhost:8082/
+          predicates:
+          - Path=/api/maintenance-plans/**
         - id: Work-Order-Management
           uri: http://localhost:8085/
           predicates:
           - Path=/api/work-orders/**
-        - id: Maintenance-Schedule-Configuration
-          uri: http://localhost:8082/
+        - id: Technician-Assignment-Tracking
+          uri: http://localhost:8088/
           predicates:
-          - Path=/api/maintenance-plans/**	
+          - Path=/api/technicians/**
+        - id: Reporting-Compliance-Logs
+          uri: htpp://localhost:8095/
+          predicates:
+          - Path=/api/reports/**
+
 
