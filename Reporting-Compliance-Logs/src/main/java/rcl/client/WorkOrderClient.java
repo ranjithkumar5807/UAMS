@@ -11,24 +11,19 @@ import rcl.dto.WorkOrderDTO;
 @FeignClient(name="Work-Order-Management")
 public interface WorkOrderClient {
 	
-	@GetMapping("/api/work-orders/work-logs?technicianId={technicianId}")
-	List<WorkLogDTO> getWorkLogsByTechnician(@PathVariable Long technicianId);
-	
-	@GetMapping("/api/work-orders/work-logs?workOrderId={workOrderId}")
-	List<WorkLogDTO> getWorkLogsByWorkOrder(@PathVariable Long workOrderId);
 
-	
-	
-	
-	
-	
-	@GetMapping("/api/work-orders?assetId={assetId}")
-	List<WorkOrderDTO> getWorkOrdersByAssetId(@PathVariable Long assetId);
-	
-	
 	@GetMapping("/api/work-orders/{id}")
 	WorkOrderDTO getWorkOrderById(@PathVariable Long workOrderId);
 	
-	@GetMapping("/api/work-orders/upcoming?month={month}")
-	List<WorkOrderDTO> getUpcomingWorkOrders(@PathVariable String month);
+	@GetMapping("/api/work-orders/assetId/{assetId}")
+	List<WorkOrderDTO> getWorkOrdersByAssetId(@PathVariable Long assetId);
+	
+	@GetMapping("/api/work-orders/upcoming/month/{month}/year/{year}")
+	List<WorkOrderDTO> getUpcomingWorkOrders(@PathVariable int month, @PathVariable int year);
+	
+	@GetMapping("/api/work-orders/work-logs/workOrderId/{workOrderId}")
+	List<WorkLogDTO> getWorkLogsByWorkOrder(@PathVariable Long workOrderId);
+			
+	@GetMapping("/api/work-orders/work-logs/technicianId/{technicianId}")
+	List<WorkLogDTO> getWorkLogsByTechnician(@PathVariable Long technicianId);
 }

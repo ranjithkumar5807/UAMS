@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import wom.exception.PlanNotFoundException;
 import wom.model.WorkLog;
 import wom.model.WorkOrder;
@@ -23,6 +22,8 @@ import wom.serviceImpl.WorkOrderServiceImpl;
 @RestController
 @RequestMapping("/api/work-orders")
 public class WorkOrderController {
+	
+
 	
 	@Autowired
 	WorkOrderServiceImpl workOrderService;
@@ -39,11 +40,19 @@ public class WorkOrderController {
 	}
 	
 	@GetMapping("/{workOrderId}")
-	public WorkOrder getWorkOrderById(@PathVariable Long workOrderId) {
+	public WorkOrder getWorkOrderById(@PathVariable long workOrderId) {
 		return workOrderService.getWorkOrderById(workOrderId);
 	}
  
+	@GetMapping("/assetId/{assetId}")
+	List<WorkOrder> getWorkOrdersByAssetId(@PathVariable long assetId){
+		return workOrderService.getWorkOrdersByAssetId(assetId);
+	}
 	
+	@GetMapping("/api/work-orders/upcoming/month/{month}/year/{year}")
+	List<WorkOrder> getUpcomingWorkOrders(@PathVariable int month, @PathVariable int year){
+		return workOrderService.getUpcomingWorkOrders(month, year);
+	}
 	@GetMapping("/bystatus")
 	public List<WorkOrder> getWorkOrdersByStatus(@RequestParam String status) {
 		

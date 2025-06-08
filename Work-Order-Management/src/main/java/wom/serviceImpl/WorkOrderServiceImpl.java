@@ -1,10 +1,12 @@
 package wom.serviceImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import jakarta.servlet.http.HttpServletRequest;
 import wom.clients.PlanClient;
@@ -21,7 +23,7 @@ import wom.service.WorkOrderService;
 public class WorkOrderServiceImpl implements WorkOrderService{
 
 	@Autowired
-	private WorkOrderRepository repo;
+	private WorkOrderRepository workOrderRepository;
 	
 	@Autowired
 	private PlanClient planClient;
@@ -36,12 +38,12 @@ public class WorkOrderServiceImpl implements WorkOrderService{
 		
 		}
 		workOrder.setPlanId(planId);
-		return repo.save(workOrder);
+		return workOrderRepository.save(workOrder);
 	}
 
 	@Override
 	public List<WorkOrder> getWorkOrdersByStatus(String status){
-	    List<WorkOrder> workOrders = repo.findByStatus(status);
+	    List<WorkOrder> workOrders = workOrderRepository.findByStatus(status);
 	    
 	    if (workOrders.isEmpty()) {
 	       throw new WorkOrderNotFoundException("No workOrders with status");
@@ -49,31 +51,61 @@ public class WorkOrderServiceImpl implements WorkOrderService{
 	    
 	    return workOrders;
 	}	
-		//need to work on converting the optional type objects to list type
-		//return repo.findById(status);
-
+		
 	@Override
 	public WorkOrder updateStatus(long workOrderId, WorkOrder workOrder) {
 		// TODO Auto-generated method stub
-		WorkOrder existingWorkOrder= repo.findById(workOrderId).orElse(null);
+		WorkOrder existingWorkOrder= workOrderRepository.findById(workOrderId).orElse(null);
 		if (existingWorkOrder==null) {
 			throw new WorkOrderNotFoundException("WorkOrder not found");
 		}
 		existingWorkOrder.setStatus(workOrder.getStatus());
 
-		return repo.save(existingWorkOrder);	
+		return workOrderRepository.save(existingWorkOrder);	
 	}
 	
 	@Override
 	public List<WorkOrder> getAllWorkOrders() {
 		// TODO Auto-generated method stub
-		return repo.findAll();
+		return workOrderRepository.findAll();
 	}
 
-	public WorkOrder getWorkOrderById(Long workOrderId) {
+	public WorkOrder getWorkOrderById(long workOrderId) {
 		// TODO Auto-generated method stub
-		return repo.findById(workOrderId).orElse(null);
+		return workOrderRepository.findById(workOrderId).orElse(null);
 	}
+
+	@Override
+	public List<WorkOrder> getWorkOrdersByPlanId(long planId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public List<WorkOrder> getWorkOrdersByAssetId(long assetId) {
+		// TODO Auto-generated method stub
+		List<PlanDTO> planDTO =  planClient.getPlanByAssetId(assetId);
+		List<WorkOrder> result = new ArrayList<>();
+		for(PlanDTO plandto :planDTO) {
+			long planId = plandto.getPlanId();
+			List<WorkOrder> currentList = workOrderRepository.findByPlanId(planId);
+			if(currentList != null) {
+				result.addAll(currentList);
+			}
+		}
+		
+		return result;
+		
+	}
+
+	@Override
+	public List<WorkOrder> getUpcomingWorkOrders(int month, int year) {
+	
+		return workOrderRepository.findByMonthAndYear(month, year);
+	}
+
+
+
 
 	
 

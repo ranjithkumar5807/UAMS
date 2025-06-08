@@ -71,8 +71,8 @@ public class ReportsService {
 		return report;
 	}
 	
-	public Map<String,Object> getUpcomingSchedule(String month){
-		List<WorkOrderDTO> workOrders=workOrderClient.getUpcomingWorkOrders(month);
+	public Map<String,Object> getUpcomingSchedule(int month, int year){
+		List<WorkOrderDTO> workOrders=workOrderClient.getUpcomingWorkOrders(month,year);
 		List<Map<String,Object>> result=new ArrayList<>();
 		
 		for(WorkOrderDTO wo: workOrders) {
@@ -89,7 +89,8 @@ public class ReportsService {
 			result.add(entry);
 		}
 		Map<String,Object> report=new HashMap<>();
-		report.put(month, month);
+		// the below line needs to be fixed!
+		//report.put(month, month);
 		report.put("upcomingMaintenance", result);
 		return report;
 		
