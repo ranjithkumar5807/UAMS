@@ -30,4 +30,6 @@ public class TechnicianController {
     public Technician getTechnicianById(@PathVariable Long id) {
         return technicianService.getTechnicianById(id);
     }
+    
 }
+
