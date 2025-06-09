@@ -2,9 +2,13 @@ package gs;
 
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
+
+import java.util.UUID;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,12 +19,16 @@ public class LoggingFilter implements GlobalFilter, Ordered {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, org.springframework.cloud.gateway.filter.GatewayFilterChain chain) {
-        logger.info("Incoming request: {} {}", 
+        long startTime=System.currentTimeMillis();
+        ServerHttpRequest request=exchange.getRequest();
+        String traceId=UUID.randomUUID().toString();
+    	logger.info("[{}] Incoming request: {} {}",traceId, 
             exchange.getRequest().getMethod(), 
             exchange.getRequest().getURI());
 
         return chain.filter(exchange).then(Mono.fromRunnable(() -> {
-            logger.info("Outgoing response: {}", exchange.getResponse().getStatusCode());
+        	long duration=System.currentTimeMillis()-startTime;
+            logger.info("[{}] Outgoing response: {} | Time: {} ms", traceId,exchange.getResponse().getStatusCode(),duration);
         }));
     }
 
