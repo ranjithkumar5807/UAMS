@@ -1,5 +1,9 @@
 package wom.model;
 
+import java.util.Date;
+
+import javax.validation.constraints.NotNull;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,8 +23,11 @@ public class WorkLog {
 	@Id
 	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private long workLogId;
-	private String startTime;
-	private String endTime;
+	@NotNull(message="Start time cannot be null")
+	private Date startTime;
+	@NotNull(message="End time cannot be null")
+	private Date endTime;
+	
 	private long technicianId;
 	
 	@ManyToOne

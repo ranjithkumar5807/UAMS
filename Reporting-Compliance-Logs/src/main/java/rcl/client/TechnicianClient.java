@@ -10,6 +10,6 @@ import rcl.dto.TechnicianDTO;
 public interface TechnicianClient {
 	
 	@GetMapping("/api/technicians/{id}")
-	TechnicianDTO getTechnicianById(@PathVariable Long technicianId);
+	TechnicianDTO getTechnicianById(@PathVariable("id") Long technicianId);
 
 }
