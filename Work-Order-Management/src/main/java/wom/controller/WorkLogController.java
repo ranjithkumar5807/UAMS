@@ -21,9 +21,15 @@ public class WorkLogController {
 	@Autowired
 	WorkLogServiceImpl workLogService;
 	
+	@PostMapping("/worklogs")
+	public WorkLog createWorkLog(@RequestBody WorkLog workLog, @RequestParam long technicianId, @RequestParam long workOrderId) {
+		
+			return workLogService.createWorkLog(workLog,workOrderId,technicianId);
+	}
+	
 	@GetMapping("/work-logs/workOrderId/{workOrderId}")
 	List<WorkLog> getWorkLogsByWorkOrder(@PathVariable Long workOrderId){
-		return workLogService.getWorkLogsByWorkOrder(workOrderId);
+		return workLogService.getWorkLogsByWorkOrderId(workOrderId);
 		
 	}
 	
@@ -31,15 +37,8 @@ public class WorkLogController {
 			
 	@GetMapping("/work-logs/technicianId/{technicianId}")
 	List<WorkLog> getWorkLogsByTechnician(@PathVariable Long technicianId){
-		return workLogService.getWorkLogsByTechnician(technicianId);
+		return workLogService.getWorkLogsByTechnicianId(technicianId);
 }
-
-	@PostMapping("/worklogs")
-	public WorkLog createWorkLog(@RequestBody WorkLog workLog, @RequestParam long technicianId, @RequestParam long workOrderId) {
-		
-			return workLogService.createWorkLog(workLog,technicianId,workOrderId);
-	}
-
 	
 	@GetMapping("/worklogs")
 	public List<WorkLog> getAllWorkLogs(){

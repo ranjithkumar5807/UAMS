@@ -10,6 +10,6 @@ import rcl.dto.MaintenancePlanDTO;
 public interface MaintenanceClient {
 	
 	@GetMapping("/api/maintenance-plans/{id}")
-	MaintenancePlanDTO getMaintenancePlan(@PathVariable Long planId);
+	MaintenancePlanDTO getMaintenancePlan(@PathVariable("id") Long planId);
 
 }

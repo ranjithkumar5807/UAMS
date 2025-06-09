@@ -29,7 +29,7 @@ public class ReportsController {
 	}
 
 	@GetMapping("/schedule-overview")
-	public ResponseEntity<?> getScheduleOverView(@RequestParam int month, int year) {
+	public ResponseEntity<?> getScheduleOverView(@RequestParam int month, @RequestParam int year) {
 		return ResponseEntity.ok(reportsService.getUpcomingSchedule(month,year));
 		
 	}

@@ -23,8 +23,8 @@ public class MaintenancePlanController {
         return maintenancePlanService.createPlan(plan,assetId);
     }
 
-    @GetMapping
-    public List<MaintenancePlan> getPlans(@RequestParam Long assetId) {
+    @GetMapping("/assetId/{assetId}")
+    public List<MaintenancePlan> getPlansByAssetId(@PathVariable Long assetId) {
         return maintenancePlanService.getPlansByAssetId(assetId);
     }
     

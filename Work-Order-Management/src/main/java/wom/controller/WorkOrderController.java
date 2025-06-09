@@ -49,7 +49,7 @@ public class WorkOrderController {
 		return workOrderService.getWorkOrdersByAssetId(assetId);
 	}
 	
-	@GetMapping("/api/work-orders/upcoming/month/{month}/year/{year}")
+	@GetMapping("/upcoming/month/{month}/year/{year}")
 	List<WorkOrder> getUpcomingWorkOrders(@PathVariable int month, @PathVariable int year){
 		return workOrderService.getUpcomingWorkOrders(month, year);
 	}
