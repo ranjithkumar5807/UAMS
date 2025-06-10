@@ -1,85 +1,67 @@
-//package auth.controller;
-//
-//import auth.service.UserDetailsServiceImpl;
-//import auth.util.JwtUtil;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.authentication.AuthenticationManager;
-//import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-//import org.springframework.security.core.AuthenticationException;
-//import org.springframework.security.core.userdetails.UserDetails;
-//import org.springframework.web.bind.annotation.*;
-//
-//@RestController
-//public class AuthController {
-//
-//    @Autowired
-//    private AuthenticationManager authenticationManager;
-//
-//    @Autowired
-//    private JwtUtil jwtUtil;
-//
-//    @Autowired
-//    private UserDetailsServiceImpl userDetailsService;
-//
-//    @PostMapping("/api/authenticate")
-//    public String createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
-//        try {
-//            authenticationManager.authenticate(
-//                    new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword())
-//            );
-//        } catch (AuthenticationException e) {
-//            throw new Exception("Incorrect username or password", e);
-//        }
-//
-//        final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
-//        final String jwt = jwtUtil.generateToken(userDetails.getUsername());
-//        System.out.println(authenticationRequest);
-//        System.out.println(jwt);
-//
-//        return jwt;
-//    }
-//}
-
-
-
 package auth.controller;
 
-import auth.service.UserDetailsServiceImpl;
-import auth.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import auth.dto.AuthRequest;
+import auth.entity.UserInfo;
+import auth.repository.UserInfoRepository;
+import auth.service.JwtService;
+import auth.service.UserService;
+
 
 @RestController
+@RequestMapping("/auth")
+@CrossOrigin("*")
 public class AuthController {
+
+    @Autowired
+    private UserService service;
+    @Autowired
+    private JwtService jwtService;
+    
+    @Autowired
+    private UserInfoRepository repo;
 
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    @Autowired
-    private JwtUtil jwtUtil;
+    @GetMapping("/welcome")		//http://localhost:9090/auth/welcome
+    public String welcome() {
+        return "Welcome this endpoint is not secure";
+    }
 
-    @Autowired
-    private UserDetailsServiceImpl userDetailsService;
+    @PostMapping("/new")	//http://localhost:9090/auth/new
+    public String addNewUser(@RequestBody UserInfo userInfo) {
+        return service.addUser(userInfo);
+    }
 
-    @PostMapping("/api/authenticate")
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) {
-        try {
-            authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword())
-            );
-        } catch (AuthenticationException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Incorrect username or password");
+
+
+    @PostMapping("/authenticate")		//http://localhost:9090/auth/authenticate
+    public String authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
+        if (authentication.isAuthenticated()) {
+        	UserInfo obj = repo.findByEmail(authRequest.getUsername()).orElse(null);
+            return jwtService.generateToken(authRequest.getUsername(),obj.getRoles());
+        } else {
+            throw new UsernameNotFoundException("invalid user request !");
         }
-
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
-        final String jwt = jwtUtil.generateToken(userDetails.getUsername());
-
-        return ResponseEntity.ok(new AuthenticationResponse(jwt));
+    }
+    
+    @GetMapping("/getroles/{username}")		//http://localhost:9090/auth/getroles/{username}
+    public String getRoles(@PathVariable String username)
+    {
+    	return service.getRoles(username);
     }
 }
