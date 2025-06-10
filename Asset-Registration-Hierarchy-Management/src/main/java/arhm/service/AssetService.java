@@ -16,6 +16,7 @@ public interface AssetService {
       List<Asset> getAssetsByRegion(String region);
 
 	    Asset getAssetById(Long assetId);
+	    
 	    Location registerLocation(Long assetId,Location location);
 
 }
