@@ -10,5 +10,5 @@ import rcl.dto.AssetDTO;
 public interface AssetClient {
 
 	@GetMapping("/api/assets/{id}")
-	public AssetDTO getAssetById(@PathVariable Long assetId);
+	public AssetDTO getAssetById(@PathVariable("id") Long assetId);
 }

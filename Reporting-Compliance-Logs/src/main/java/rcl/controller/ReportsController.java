@@ -15,6 +15,13 @@ public class ReportsController {
 	@Autowired
 	private ReportsService reportsService;
 	
+	
+	@GetMapping("/test")
+	public String result() {
+		return "I got it";
+	}
+	
+	
 	@GetMapping("/asset-history")
 	public ResponseEntity<?>  getAssetHistory(@RequestParam Long assetId) {
 		return ResponseEntity.ok(reportsService.getAssetMaintenanceHistory(assetId));
@@ -22,7 +29,7 @@ public class ReportsController {
 	}
 
 	@GetMapping("/schedule-overview")
-	public ResponseEntity<?> getScheduleOverView(@RequestParam int month, int year) {
+	public ResponseEntity<?> getScheduleOverView(@RequestParam int month, @RequestParam int year) {
 		return ResponseEntity.ok(reportsService.getUpcomingSchedule(month,year));
 		
 	}

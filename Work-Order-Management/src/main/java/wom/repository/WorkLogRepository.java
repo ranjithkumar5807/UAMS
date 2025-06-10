@@ -10,5 +10,5 @@ import wom.model.WorkLog;
 public interface WorkLogRepository extends JpaRepository<WorkLog, Long> {
 
 	List<WorkLog> findByTechnicianId(long technicianId);
-	List<WorkLog> findByWorkOrderId(long workOrderId);
+	List<WorkLog> findByWorkOrder_WorkOrderId(long workOrderId);
 }

@@ -49,16 +49,16 @@ public class WorkLogServiceImpl implements WorkLogService {
 	}
 
 	@Override
-	public List<WorkLog> getWorkLogsByTechnician(Long technicianId) {
+	public List<WorkLog> getWorkLogsByTechnicianId(Long technicianId) {
 		// TODO Auto-generated method stub
 		
 		return wlrepo.findByTechnicianId(technicianId);
 	}
 
 	@Override
-	public List<WorkLog> getWorkLogsByWorkOrder(Long workOrderId) {
+	public List<WorkLog> getWorkLogsByWorkOrderId(Long workOrderId) {
 		// TODO Auto-generated method stub
-		return wlrepo.findByWorkOrderId(workOrderId);
+		return wlrepo.findByWorkOrder_WorkOrderId(workOrderId);
 	}
 
 

@@ -11,8 +11,8 @@ public interface WorkLogService {
 	
 	 WorkLog createWorkLog(WorkLog workLog, long technicianId, long workOrderId);
 	 List<WorkLog> getAllWorkLogs();
-	 List<WorkLog> getWorkLogsByTechnician(Long technicianId);
-	 List<WorkLog> getWorkLogsByWorkOrder(Long workOrderId);
+	 List<WorkLog> getWorkLogsByTechnicianId(Long technicianId);
+	 List<WorkLog> getWorkLogsByWorkOrderId(Long workOrderId);
 
   
 }

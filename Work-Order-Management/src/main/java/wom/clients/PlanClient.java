@@ -11,7 +11,7 @@ import wom.dto.PlanDTO;
 @FeignClient(name="Maintenance-Schedule-Configuration")
 public interface PlanClient {
 
-	@GetMapping("/api/maintenance-plans/planid/{id}")
+	@GetMapping("/api/maintenance-plans/{id}")
     PlanDTO getPlanById(@PathVariable long id );
     
 	@GetMapping("/api/maintenance-plans/assetId/{assetId}")

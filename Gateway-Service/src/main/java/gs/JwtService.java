@@ -1,4 +1,5 @@
-package auth.service;
+package gs;
+
 
 import java.security.Key;
 import java.util.Date;
@@ -78,3 +79,4 @@ public class JwtService {
 		return Keys.hmacShaKeyFor(keyBytes);
 	}
 }
+
