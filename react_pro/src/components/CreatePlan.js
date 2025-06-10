@@ -1,32 +1,117 @@
-import React, { useState } from "react";
-import { createMaintenancePlan } from "../services/api";
+import React, { useState } from 'react'
 
-const CreatePlan = () => {
-    const [plan, setPlan] = useState({ name: "", description: "" });
-    const [assetId, setAssetId] = useState("");
 
-    const handleSubmit = async (e) => {
+import {createmaintainence, updateemaintainence} from '../services/maintainence'
+import { useNavigate,useParams} from 'react-router-dom'
+function CreatePlan() {
+  
+    const [assetId,setAssetId]=useState('')
+    const [frequency,setFrequency]=useState('')
+   
+    
+    
+    const navigator = useNavigate();
+   const{planId} = useParams();
+
+    function handleAssetId(e){
+        setAssetId(e.target.value)
+        
+    }
+    function handleFrequency(e){
+        setFrequency(e.target.value)
+    }
+    
+  
+    function saveandupdateAsset(e){
         e.preventDefault();
-        try {
-            await createMaintenancePlan(plan, assetId);
-            alert("Maintenance plan created successfully!");
-        } catch (error) {
-            console.error("Error creating plan:", error);
-            alert("Failed to create plan");
-        }
-    };
+        const maintainence = {assetId,frequency}
+        if(planId){
+        try{
+            updateemaintainence(planId,maintainence).then((response) =>{
+            console.log(response.data);
+            navigator('/maintenace');
+          });
+        }catch(error){
 
-    return (
-        <div>
-            <h2>Create Maintenance Plan</h2>
-            <form onSubmit={handleSubmit}>
-                <input type="text" placeholder="Plan Name" required onChange={(e) => setPlan({ ...plan, name: e.target.value })} />
-                <input type="text" placeholder="Description" required onChange={(e) => setPlan({ ...plan, description: e.target.value })} />
-                <input type="number" placeholder="Asset ID" required onChange={(e) => setAssetId(e.target.value)} />
-                <button type="submit">Create Plan</button>
-            </form>
+          };
+        }else{
+          try {
+           console.log(maintainence)
+           createmaintainence(maintainence).then((response)=>{
+              console.log(response.data);
+              navigator('/maintenace');
+          } );
+        }catch (error) {
+            
+          };
+              
+             // alert(response.data);
+        
+        }
+        
+      }
+    function pageTitle(){
+      if(planId){
+        return  <h2 className='text-center'>update maintainencePlan</h2>
+      }else{
+        <h2 className='text-center'>Add maintainencePlan</h2>
+      }
+    }
+      
+      
+  
+  return (
+    <div className='container'>
+        <div className='row'>
+          <div className='card'>
+             {
+              pageTitle()
+             }
+              <div className='card-body'>
+                         <form >
+                           <div className='form-group mb-2'>
+                            <label className='form-label'>Asset name</label>
+                            <input
+                              type='text'
+                              placeholder='enter the asset name'
+                              name='AssetName'
+                              value={assetId}
+                              className='form-control'
+                              onChange={handleAssetId}
+                             >
+
+                             </input>
+                           </div>
+                           <div className='form-group mb-2'>
+                            <label className='form-label'>Asset type</label>
+                            <input
+                              type='text'
+                              placeholder='enter the asset type'
+                              name='AssetType'
+                              value={frequency}
+                              className='form-control'
+                              onChange={handleFrequency}
+                             >
+
+                             </input>
+                           </div>
+
+                          
+                        <button className='btn btn-success' onClick={saveandupdateAsset}>Submit</button>
+                       
+                       
+                         </form>
+              </div>
+
+
+          </div>
+
         </div>
-    );
-};
+
+
+
+    </div>
+  )
+}
 
 export default CreatePlan;

@@ -1,45 +1,60 @@
-import React, { useState, useEffect } from "react";
-import { getAllMaintenancePlans, deleteMaintenancePlan } from "../services/api";
+import React,{useEffect, useState} from 'react'
+import {Listmaintainence} from '../services/maintainence'
+import { useNavigate,useParams } from 'react-router-dom'
 
-const MaintenancePlans = () => {
-    const [plans, setPlans] = useState([]);
-       
-    useEffect(() => {
-        const fetchPlans = async () => {
-            try {
-                const response = await getAllMaintenancePlans();
-                setPlans(response.data);
-            } catch (error) {
-                console.error("Error fetching plans:", error);
-            }
-        };
-        fetchPlans();
-    }, []);
+function MaintenancePlans() {
+     
+const [maintainence,setMaintainence]= useState([])
+const navigator= useNavigate();
+const{planId} = useParams();
 
-    const handleDelete = async (id) => {
-        try {
-            await deleteMaintenancePlan(id);
-            setPlans(plans.filter(plan => plan.id !== id));
-            alert("Plan deleted successfully!");
-        } catch (error) {
-            console.error("Error deleting plan:", error);
-            alert("Failed to delete plan");
-        }
-    };
+useEffect(()=>{
+    Listmaintainence().then((response) =>{
+        setMaintainence(response.data);
+    }).catch(error=>{
+        console.error(error);
+    })
+},[])
+function addNewmaintainenecePlan(){
+  navigator('/add-maintainence')
+}
+ function UpdatemaintainenecePlan(planId){
+  navigator(`/update-maintainencePlan/${planId}`)
+ }
+  return (
+    <div className="container">
+  <h2>list of assets</h2>
+  <button className='btn btn-primary' onClick={addNewmaintainenecePlan}>add asset</button>
+  <table className='table table-striped table-bordered'>
+    <thead>
+        <tr>
+            <th>plan id</th>
+            <th>asset Id</th>
+            <th>frequency</th>
+           
+           
 
-    return (
-        <div>
-            <h2>Maintenance Plans</h2>
-            <ul>
-                {plans.map(plan => (
-                    <li key={plan.id}>
-                        {plan.name} - {plan.description}
-                        <button onClick={() => handleDelete(plan.id)}>Delete</button>
-                    </li>
-                ))}
-            </ul>
-        </div>
-    );
-};
+           
+        </tr>
+    </thead>
+    <tbody>
+       {
+      maintainence.map(maintain =>
+            <tr key={maintain.planId}>
+            <td>{maintain.planId}</td>
+            <td>{maintain.assetId}</td>
+            <td>{maintain.frequency}</td>
+           
+            <td>
+              <btn className='btn btn-success' onClick={()=>UpdatemaintainenecePlan(maintainence.planId)}>update</btn>
+              </td>
+            </tr>
+        )
+       }
+    </tbody>
+  </table>
+    </div>
+  )
+}
 
-export default MaintenancePlans;
+export default MaintenancePlans
