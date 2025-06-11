@@ -10,6 +10,16 @@ eureka:
 spring:
   cloud:
     gateway:
+      globalcors:
+           corsConfigurations:
+               '[/**]':
+                 allowedOrigins: "*"
+                 allowedMethods:
+                      - GET
+                      - POST
+                      - PUT
+                      - DELETE
+                 allowedHeaders: "*"
       routes:
         - id: Asset-Registration-Hierarchy-Management
           uri: http://localhost:8081/
@@ -31,5 +41,9 @@ spring:
           uri: htpp://localhost:8095/
           predicates:
           - Path=/api/reports/**
+        - id: AuthServer
+          uri: http://localhost:8086/
+          predicates:
+          - Path=/api/auth/**
 
 
