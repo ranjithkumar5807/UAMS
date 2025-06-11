@@ -9,7 +9,7 @@ import wom.model.WorkLog;;
 
 public interface WorkLogService {
 	
-	 WorkLog createWorkLog(WorkLog workLog, long technicianId, long workOrderId);
+	 WorkLog createWorkLog(WorkLog workLog, long workOrderId,long technicianId);
 	 List<WorkLog> getAllWorkLogs();
 	 List<WorkLog> getWorkLogsByTechnicianId(Long technicianId);
 	 List<WorkLog> getWorkLogsByWorkOrderId(Long workOrderId);

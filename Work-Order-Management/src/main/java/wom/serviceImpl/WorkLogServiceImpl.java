@@ -10,6 +10,9 @@ import com.netflix.discovery.converters.Auto;
 
 import wom.clients.TechnicianClient;
 import wom.dto.TechnicianDTO;
+import wom.exception.PlanNotFoundException;
+import wom.exception.TechnicianNotFoundException;
+import wom.exception.WorkOrderNotFoundException;
 import wom.model.WorkLog;
 import wom.model.WorkOrder;
 import wom.repository.WorkLogRepository;
@@ -31,11 +34,12 @@ public class WorkLogServiceImpl implements WorkLogService {
 		WorkOrder workOrder = worepo.findById(workOrderId).orElse(null);
 	    TechnicianDTO technicianDTO = technicianClient.getTechnicianById(technicianId);
 	    if(workOrder == null) {
-	    	
+	    	throw new WorkOrderNotFoundException("Work Order not found");
 	    }
 	    if(technicianDTO == null)
 	    {
-	    	
+	    	throw new TechnicianNotFoundException("Technician not found");
+
 	    }
 	    workLog.setTechnicianId(technicianId);	
 	    workLog.setWorkOrder(workOrder);
