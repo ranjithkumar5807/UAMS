@@ -1,117 +1,59 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { createMaintenancePlan } from '../services/api';
+import { useNavigate } from 'react-router-dom';
 
+const AddMaintenancePlan = () => {
+  const [assetId, setAssetId] = useState('');
+  const [frequency, setFrequency] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-import {createmaintainence, updateemaintainence} from '../services/maintainence'
-import { useNavigate,useParams} from 'react-router-dom'
-function CreatePlan() {
-  
-    const [assetId,setAssetId]=useState('')
-    const [frequency,setFrequency]=useState('')
-   
-    
-    
-    const navigator = useNavigate();
-   const{planId} = useParams();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const plan = { assetId, frequency };
 
-    function handleAssetId(e){
-        setAssetId(e.target.value)
-        
-    }
-    function handleFrequency(e){
-        setFrequency(e.target.value)
-    }
-    
-  
-    function saveandupdateAsset(e){
-        e.preventDefault();
-        const maintainence = {assetId,frequency}
-        if(planId){
-        try{
-            updateemaintainence(planId,maintainence).then((response) =>{
-            console.log(response.data);
-            navigator('/maintenace');
-          });
-        }catch(error){
-
-          };
-        }else{
-          try {
-           console.log(maintainence)
-           createmaintainence(maintainence).then((response)=>{
-              console.log(response.data);
-              navigator('/maintenace');
-          } );
-        }catch (error) {
-            
-          };
-              
-             // alert(response.data);
-        
-        }
-        
-      }
-    function pageTitle(){
-      if(planId){
-        return  <h2 className='text-center'>update maintainencePlan</h2>
-      }else{
-        <h2 className='text-center'>Add maintainencePlan</h2>
+    try {
+      await createMaintenancePlan(plan, assetId);
+      setError('');
+      navigate('/maintenance');
+    } catch (err) {
+      if (err.response || err.response.status === '404') {
+        setError('Asset not found. Please enter a valid Asset ID.');
+      } else {
+        setError('An error occurred while creating the plan.');
       }
     }
-      
-      
-  
+  };
+
   return (
-    <div className='container'>
-        <div className='row'>
-          <div className='card'>
-             {
-              pageTitle()
-             }
-              <div className='card-body'>
-                         <form >
-                           <div className='form-group mb-2'>
-                            <label className='form-label'>Asset name</label>
-                            <input
-                              type='text'
-                              placeholder='enter the asset name'
-                              name='AssetName'
-                              value={assetId}
-                              className='form-control'
-                              onChange={handleAssetId}
-                             >
-
-                             </input>
-                           </div>
-                           <div className='form-group mb-2'>
-                            <label className='form-label'>Asset type</label>
-                            <input
-                              type='text'
-                              placeholder='enter the asset type'
-                              name='AssetType'
-                              value={frequency}
-                              className='form-control'
-                              onChange={handleFrequency}
-                             >
-
-                             </input>
-                           </div>
-
-                          
-                        <button className='btn btn-success' onClick={saveandupdateAsset}>Submit</button>
-                       
-                       
-                         </form>
-              </div>
-
-
-          </div>
-
+    <div className="container">
+      <h2>Create Maintenance Plan</h2>
+      {error && <div className="alert alert-danger">{error}</div>}
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label>Asset ID:</label>
+          <input
+            type="number"
+            className="form-control"
+            value={assetId}
+            onChange={(e) => setAssetId(e.target.value)}
+            required
+          />
         </div>
-
-
-
+        <div className="form-group">
+          <label>Frequency:</label>
+          <input
+            type="text"
+            className="form-control"
+            value={frequency}
+            onChange={(e) => setFrequency(e.target.value)}
+            required
+          />
+        </div>
+        <button type="submit" className="btn btn-success">Create</button>
+      </form>
     </div>
-  )
-}
+  );
+};
 
-export default CreatePlan;
+export default AddMaintenancePlan;

@@ -6,6 +6,7 @@ import AssetComponent from './components/AssetComponent';
 import MaintenancePlans from './components/MaintenancePlans';
 import CreatePlan from './components/CreatePlan';
 import HomePage from './components/HomePage'
+import Tasklist from './components/Tasklist';
 function App() {
   return (
     <>
@@ -19,7 +20,7 @@ function App() {
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
         <a class="nav-link" href="/assets">Assets</a>
-        <a class="nav-link" href="/maintenace">Maintenance</a>
+        <a class="nav-link" href="/maintenance">Maintenance</a>
         <a class="nav-link" href="/workorder">Work Order</a>
         <a class="nav-link" href="/assignment">Assignment</a>
         <a class="nav-link" href="/report">Report</a>
@@ -32,10 +33,11 @@ function App() {
          <Route path='/assets' element={<ListAssetsComponent/>}></Route>
         <Route path='/add-asset' element={<AssetComponent/>}></Route>
         <Route path='/update-asset/:assetId' element={<AssetComponent/>}></Route>
-        {/* <Route path='/maintainence' element={<MaintenancePlans/>}></Route>
-        <Route path='/create' element={<CreatePlan/>}></Route> */}
-         <Route path='/maintenace/:planId' element={<MaintenancePlans/>}></Route>
-         <Route path='/add-maintainence' element={<CreatePlan/>}></Route>
+        
+        <Route path="/maintenance" element={<MaintenancePlans />} />
+        <Route path="/add-maintenance" element={<CreatePlan />} />
+        <Route path="/tasks/:planId" element={<Tasklist />} />
+
          <Route path='/update-maintainencePlan/:planId' element={<CreatePlan/>}></Route>
          <Route path='/workorder' element={<ListAssetsComponent/>}></Route>
          <Route path='/assignment' element={<ListAssetsComponent/>}></Route>

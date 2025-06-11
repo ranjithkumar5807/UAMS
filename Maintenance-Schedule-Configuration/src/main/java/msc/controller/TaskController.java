@@ -3,6 +3,7 @@ package msc.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,8 @@ import msc.model.Task;
 import msc.service.TaskService;
 import msc.serviceImpl.TaskServiceImpl;
 
+
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/maintenance-plans/tasks")
 public class TaskController {
@@ -26,13 +29,13 @@ public class TaskController {
 	private TaskService taskService;
 	
 	@PostMapping("/{planId}")
-    public Task createPlan(@PathVariable Long planId, @RequestBody Task task) {
+    public Task createTask(@PathVariable Long planId, @RequestBody Task task) {
         return taskService.addTaskToPlan(planId, task);
     }
 	
 	@GetMapping
-	public List<Task> getTasksByPlanId(@RequestParam Long taskId) {
-        return taskService.getTasksByPlanId(taskId);
+	public List<Task> getTasksByPlanId(@RequestParam Long planId) {
+        return taskService.getTasksByPlanId(planId);
     }
 	
 	@PutMapping("/{taskId}")
@@ -41,7 +44,7 @@ public class TaskController {
     } 
 	
 	@DeleteMapping("/delete")
-    public void deleteMaintenancePlan(@RequestParam Long taskId) {
+    public void deleteMaintenanceTask(@RequestParam Long taskId) {
     	taskService.deleteTask(taskId);
     }
 }
