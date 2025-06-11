@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import wom.model.WorkLog;
 import wom.serviceImpl.WorkLogServiceImpl;
 
-@CrossOrigin(origins="http://localhost:3000")
+
 @RestController
 @RequestMapping("/api/work-orders")
 public class WorkLogController {
