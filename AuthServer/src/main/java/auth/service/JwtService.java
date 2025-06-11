@@ -3,6 +3,7 @@ package auth.service;
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -60,7 +61,7 @@ public class JwtService {
 		return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
 	}
 
-	public String generateToken(String userName, String roles) {
+	public String generateToken(String userName, List<String> roles) {
 		Map<String, Object> claims = new HashMap<>();
 		claims.put("roles", roles);
 		System.out.println(claims);

@@ -1,32 +1,59 @@
-import React, { useState } from "react";
-import { createMaintenancePlan } from "../services/api";
+import React, { useState } from 'react';
+import { createMaintenancePlan } from '../services/api';
+import { useNavigate } from 'react-router-dom';
 
-const CreatePlan = () => {
-    const [plan, setPlan] = useState({ name: "", description: "" });
-    const [assetId, setAssetId] = useState("");
+const AddMaintenancePlan = () => {
+  const [assetId, setAssetId] = useState('');
+  const [frequency, setFrequency] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            await createMaintenancePlan(plan, assetId);
-            alert("Maintenance plan created successfully!");
-        } catch (error) {
-            console.error("Error creating plan:", error);
-            alert("Failed to create plan");
-        }
-    };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const plan = { assetId, frequency };
 
-    return (
-        <div>
-            <h2>Create Maintenance Plan</h2>
-            <form onSubmit={handleSubmit}>
-                <input type="text" placeholder="Plan Name" required onChange={(e) => setPlan({ ...plan, name: e.target.value })} />
-                <input type="text" placeholder="Description" required onChange={(e) => setPlan({ ...plan, description: e.target.value })} />
-                <input type="number" placeholder="Asset ID" required onChange={(e) => setAssetId(e.target.value)} />
-                <button type="submit">Create Plan</button>
-            </form>
+    try {
+      await createMaintenancePlan(plan, assetId);
+      setError('');
+      navigate('/maintenance');
+    } catch (err) {
+      if (err.response || err.response.status === '404') {
+        setError('Asset not found. Please enter a valid Asset ID.');
+      } else {
+        setError('An error occurred while creating the plan.');
+      }
+    }
+  };
+
+  return (
+    <div className="container">
+      <h2>Create Maintenance Plan</h2>
+      {error && <div className="alert alert-danger">{error}</div>}
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label>Asset ID:</label>
+          <input
+            type="number"
+            className="form-control"
+            value={assetId}
+            onChange={(e) => setAssetId(e.target.value)}
+            required
+          />
         </div>
-    );
+        <div className="form-group">
+          <label>Frequency:</label>
+          <input
+            type="text"
+            className="form-control"
+            value={frequency}
+            onChange={(e) => setFrequency(e.target.value)}
+            required
+          />
+        </div>
+        <button type="submit" className="btn btn-success">Create</button>
+      </form>
+    </div>
+  );
 };
 
-export default CreatePlan;
+export default AddMaintenancePlan;

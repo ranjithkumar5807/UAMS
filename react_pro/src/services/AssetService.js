@@ -5,6 +5,10 @@ const REST_API_BASE_URL='http://localhost:8081/api/assets';
 export const ListAssets = () => axios.get(REST_API_BASE_URL);
 
 
+
 export const createAsset = (asset) => axios.post(REST_API_BASE_URL,asset);
 
-export const updateeAsset=(assetId,asset)=>axios.put(REST_API_BASE_URL + '/' + assetId,asset)
+
+
+export const updateeAsset=(assetId,asset)=>axios.put(REST_API_BASE_URL + '/' + assetId,asset);
+

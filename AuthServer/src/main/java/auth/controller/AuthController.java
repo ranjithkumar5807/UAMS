@@ -1,11 +1,17 @@
 package auth.controller;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+//import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,8 +27,7 @@ import auth.service.UserService;
 
 
 @RestController
-@RequestMapping("/auth")
-@CrossOrigin("*")
+@RequestMapping("/api/auth")
 public class AuthController {
 
     @Autowired
@@ -36,10 +41,10 @@ public class AuthController {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    @GetMapping("/welcome")		//http://localhost:9090/auth/welcome
-    public String welcome() {
-        return "Welcome this endpoint is not secure";
-    }
+//    @GetMapping("/welcome")		//http://localhost:9090/auth/welcome
+//    public String welcome() {
+//        return "Welcome this endpoint is not secure";
+//    }
 
     @PostMapping("/new")	//http://localhost:9090/auth/new
     public String addNewUser(@RequestBody UserInfo userInfo) {
@@ -48,18 +53,28 @@ public class AuthController {
 
 
 
-    @PostMapping("/authenticate")		//http://localhost:9090/auth/authenticate
-    public String authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
+    @PostMapping("/authenticate")
+    public ResponseEntity<Map<String, String>> authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
+        Authentication authentication = authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())
+        );
+
         if (authentication.isAuthenticated()) {
-        	UserInfo obj = repo.findByEmail(authRequest.getUsername()).orElse(null);
-            return jwtService.generateToken(authRequest.getUsername(),obj.getRoles());
+            UserInfo obj = repo.findByEmail(authRequest.getUsername()).orElse(null);
+            List<String> roles = Arrays.asList(obj.getRoles().split(","));  // e.g., "ROLE_USER,ROLE_ADMIN"
+            System.out.println(roles);
+            String token = jwtService.generateToken(authRequest.getUsername(), roles);
+
+            Map<String, String> response = new HashMap<>();
+            response.put("token", token);
+            return ResponseEntity.ok(response);
         } else {
-            throw new UsernameNotFoundException("invalid user request !");
+            throw new UsernameNotFoundException("Invalid user request!");
         }
     }
-    
+
     @GetMapping("/getroles/{username}")		//http://localhost:9090/auth/getroles/{username}
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String getRoles(@PathVariable String username)
     {
     	return service.getRoles(username);

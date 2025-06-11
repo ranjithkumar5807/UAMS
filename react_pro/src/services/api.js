@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:8080/api/assets";
+const API_BASE_URL = "http://localhost:8082/api/maintenance-plans";
 
 export const createMaintenancePlan = (plan, assetId) =>
     axios.post(`${API_BASE_URL}`, plan, { params: { assetId } });
@@ -22,3 +22,15 @@ export const deleteMaintenancePlan = (id) =>
 
 export const deleteAllMaintenancePlans = () =>
     axios.delete(`${API_BASE_URL}/deleteAll`);
+
+export const createTask = (planId, task) =>
+    axios.post(`${API_BASE_URL}/tasks/${planId} `, task );
+
+export const getTasksByPlanId = (planId) =>
+    axios.get(`${API_BASE_URL}/${planId}`);
+
+export const updateTask = (taskId, task) =>
+    axios.put(`${API_BASE_URL}/${taskId}`, task);
+
+export const deleteTask = (taskId) =>
+    axios.delete(`${API_BASE_URL}/delete`,{params:{taskId}});
