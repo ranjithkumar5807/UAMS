@@ -9,7 +9,7 @@ import tat.service.TechnicianService;
 
 import java.util.List;
 
-@CrossOrigin(origins="http://localhost:3000")
+@CrossOrigin(origins ="http://localhost:3000")
 @RestController
 @RequestMapping("/api/technicians")
 public class TechnicianController {
@@ -21,7 +21,12 @@ public class TechnicianController {
     public Technician addTechnician(@RequestBody Technician technician) {
         return technicianService.saveTechnician(technician);
     }
-
+    
+    @GetMapping
+    public List<Technician> getAllTechnicians() {
+    	return technicianService.getAllTechnicians();
+    }
+    
     @GetMapping("/region/{region}")
     public List<Technician> getTechniciansByRegion(@PathVariable String region) {
         return technicianService.getTechniciansByRegion(region);

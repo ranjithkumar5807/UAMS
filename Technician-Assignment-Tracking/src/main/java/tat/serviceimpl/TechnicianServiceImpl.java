@@ -30,4 +30,10 @@ public class TechnicianServiceImpl implements TechnicianService {
     public Technician getTechnicianById(Long id) {
         return technicianRepository.findById(id).orElse(null);
     }
+
+	@Override
+	public List<Technician> getAllTechnicians() {
+		// TODO Auto-generated method stub
+		return technicianRepository.findAll();
+	}
 }

@@ -9,5 +9,6 @@ public interface TechnicianService {
 //  List<Assignment> getAssignmentsByTechnicianId(Long technicianId);
     List<Technician> getTechniciansByRegion(String region);
     Technician getTechnicianById(Long id);
+	List<Technician> getAllTechnicians();
     
 }

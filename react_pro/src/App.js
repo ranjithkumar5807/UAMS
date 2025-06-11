@@ -7,6 +7,8 @@ import MaintenancePlans from './components/MaintenancePlans';
 import CreatePlan from './components/CreatePlan';
 import HomePage from './components/HomePage'
 import Tasklist from './components/Tasklist';
+import TechnicianListComponent from './components/TechnicianListComponent';
+import TechnicianComp from './components/TechnicianComp';
 function App() {
   return (
     <>
@@ -22,7 +24,7 @@ function App() {
         <a class="nav-link" href="/assets">Assets</a>
         <a class="nav-link" href="/maintenance">Maintenance</a>
         <a class="nav-link" href="/workorder">Work Order</a>
-        <a class="nav-link" href="/assignment">Assignment</a>
+        <a class="nav-link" href="/technicians/region/:region">Technician</a>
         <a class="nav-link" href="/report">Report</a>
       </div>
     </div>
@@ -40,11 +42,11 @@ function App() {
 
          <Route path='/update-maintainencePlan/:planId' element={<CreatePlan/>}></Route>
          <Route path='/workorder' element={<ListAssetsComponent/>}></Route>
-         <Route path='/assignment' element={<ListAssetsComponent/>}></Route>
+         
          <Route path='/report' element={<ListAssetsComponent/>}></Route>
           
-       
-        
+         <Route path="/technicians/region/:region" element={<TechnicianListComponent />} />
+         <Route path='/add-Technician' element={<TechnicianComp/>}></Route>
 
     </Routes>
     </BrowserRouter>
