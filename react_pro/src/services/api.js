@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = "http://localhost:8082/api/maintenance-plans";
+const API_BASE_URL = "http://localhost:8090/api/maintenance-plans";
 
 export const createMaintenancePlan = (plan, assetId) =>
     axios.post(`${API_BASE_URL}`, plan, { params: { assetId } });

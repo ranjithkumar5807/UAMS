@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const REST_API_BASE_URL='http://localhost:8081/api/assets';
+const REST_API_BASE_URL='http://localhost:8090/api/assets';
 
 export const ListAssets = () => axios.get(REST_API_BASE_URL);
 

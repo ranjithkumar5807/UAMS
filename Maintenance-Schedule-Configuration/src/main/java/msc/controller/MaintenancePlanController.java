@@ -11,7 +11,7 @@ import msc.model.MaintenancePlan;
 import msc.service.MaintenancePlanService;
 import msc.serviceImpl.MaintenancePlanServiceImpl;
 
-@CrossOrigin(origins = "http://localhost:3000")
+
 @RestController
 @RequestMapping("/api/maintenance-plans")
 public class MaintenancePlanController {

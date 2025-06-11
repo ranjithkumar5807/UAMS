@@ -9,7 +9,7 @@ import tat.service.AssignmentService;
 
 import java.util.List;
 
-@CrossOrigin(origins="http://localhost:3000")
+
 @RestController
 @RequestMapping("/api/technicians/assignments")
 public class AssignmentController {

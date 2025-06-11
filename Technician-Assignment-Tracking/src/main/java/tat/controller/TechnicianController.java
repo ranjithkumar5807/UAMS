@@ -9,7 +9,11 @@ import tat.service.TechnicianService;
 
 import java.util.List;
 
+<<<<<<< HEAD
 @CrossOrigin(origins ="http://localhost:3000")
+=======
+
+>>>>>>> c95938afd6a2253a4077053b13af63e672d9808e
 @RestController
 @RequestMapping("/api/technicians")
 public class TechnicianController {
