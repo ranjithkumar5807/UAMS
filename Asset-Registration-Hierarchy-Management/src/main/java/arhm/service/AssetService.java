@@ -12,6 +12,8 @@ public interface AssetService {
 	    Asset updateAsset(Long assetId, Asset asset) throws Exception;
 
 	    List<Asset> getAllAssets();
+	    
+	    List<Location> getAllLocation();
 
       List<Asset> getAssetsByRegion(String region);
 

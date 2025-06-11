@@ -61,6 +61,11 @@ public class AssetController {
 		  
 		  return assetService.getAssetsByRegion(region);
 	  }
+	  @GetMapping("/alllocations")
+		public List<Location> getAllLocation(){
+			return assetService.getAllLocation();
+		}
+		
 	  
 	  @PostMapping("/location/{assetId}")
 	  public Location registerLocation(@PathVariable Long assetId,@RequestBody Location location)  {

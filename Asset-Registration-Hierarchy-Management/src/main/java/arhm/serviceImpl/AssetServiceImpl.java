@@ -52,6 +52,11 @@ public class AssetServiceImpl implements AssetService {
 		return assetRepository.findAll();
 	}
 	
+	@Override
+	public List<Location> getAllLocation() {
+		
+		return locationRepository.findAll();
+	}
 	
 	@Override
 	public Asset getAssetById(Long assetId) {
