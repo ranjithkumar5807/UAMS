@@ -9,6 +9,7 @@ import HomePage from './components/HomePage'
 import Tasklist from './components/Tasklist';
 import TechnicianListComponent from './components/TechnicianListComponent';
 import TechnicianComp from './components/TechnicianComp';
+import Reporting from './components/Reporting';
 function App() {
   return (
     <>
@@ -43,7 +44,7 @@ function App() {
          <Route path='/update-maintainencePlan/:planId' element={<CreatePlan/>}></Route>
          <Route path='/workorder' element={<ListAssetsComponent/>}></Route>
          
-         <Route path='/report' element={<ListAssetsComponent/>}></Route>
+         <Route path='/report' element={<Reporting/>}></Route>
           
          <Route path="/technicians/region/:region" element={<TechnicianListComponent />} />
          <Route path='/add-Technician' element={<TechnicianComp/>}></Route>

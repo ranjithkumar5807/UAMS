@@ -66,18 +66,12 @@ public class ReportsService {
 		List<Map<String,Object>> history=new ArrayList<>();
 		System.out.println(workOrders);
 		for(WorkOrderDTO wo:workOrders) {
-//			List<WorkLogDTO> logs=workOrderClient.getWorkLogsByWorkOrder(wo.workOrderId);
-//			System.out.println(logs);
-//			for(WorkLogDTO log:logs) {
-//				TechnicianDTO tech=technicianClient.getTechnicianById(log.technicianId);
 				Map<String,Object> entry=new HashMap<>();
 				entry.put("WorkOrderId",wo.workOrderId);
+				entry.put("PlanId",wo.planId);
 				entry.put("scheduledDate", wo.scheduledDate);
 				entry.put("status", wo.status);
-//				entry.put("technician",tech.name);
-//				entry.put("timeSpentHours", Duration.between(log.startTime.toInstant(), log.endTime.toInstant()).toMinutes()/60.0);
 				history.add(entry);
-//			}
 		}
 		Map<String,Object> report=new HashMap<>();
 		report.put("assetId", assetId);

@@ -38,7 +38,7 @@ spring:
           predicates:
           - Path=/api/technicians/**
         - id: Reporting-Compliance-Logs
-          uri: htpp://localhost:8095/
+          uri: http://localhost:8095/
           predicates:
           - Path=/api/reports/**
         - id: AuthServer
