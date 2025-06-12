@@ -16,6 +16,8 @@ import WorkLogList from './components/WorkLogList';
 import WorkOrderForm from './components/WorkOrderForm';
 import WorkOrderList from './components/WorkOrderList';
 
+import './axiosConfig';
+
 import TechnicianList from './components/TechnicianList';
 import AssignTechnicianForm from './components/AssignTechnicianForm';
 import AssignmentList from './components/AssignmentList';
