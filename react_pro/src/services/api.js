@@ -23,14 +23,18 @@ export const deleteMaintenancePlan = (id) =>
 export const deleteAllMaintenancePlans = () =>
     axios.delete(`${API_BASE_URL}/deleteAll`);
 
+
+
+
+
 export const createTask = (planId, task) =>
     axios.post(`${API_BASE_URL}/tasks/${planId} `, task );
 
 export const getTasksByPlanId = (planId) =>
-    axios.get(`${API_BASE_URL}/${planId}`);
+    axios.get(`${API_BASE_URL}/tasks/${planId}`);
 
 export const updateTask = (taskId, task) =>
-    axios.put(`${API_BASE_URL}/${taskId}`, task);
+    axios.put(`${API_BASE_URL}/tasks/${taskId}`, task);
 
 export const deleteTask = (taskId) =>
-    axios.delete(`${API_BASE_URL}/delete`,{params:{taskId}});
+    axios.delete(`${API_BASE_URL}/tasks/delete/${taskId}`);

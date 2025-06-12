@@ -23,7 +23,7 @@ public class SecurityConfig {
         return http.csrf(csrf -> csrf.disable())
 //                .authorizeHttpRequests(requests -> requests.requestMatchers("api/assets/**").hasRole("admin")
         		.authorizeHttpRequests(requests -> requests.requestMatchers("/api/maintenance-plans/**").permitAll()
-                      .anyRequest()  .authenticated())
+                      .anyRequest()  .permitAll())
                 .sessionManagement(management -> management
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)

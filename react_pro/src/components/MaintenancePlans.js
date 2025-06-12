@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { getAllMaintenancePlans, deleteMaintenancePlan } from '../services/api';
+import { getAllMaintenancePlans, deleteMaintenancePlan,updateMaintenancePlan } from '../services/api';
 import { useNavigate } from 'react-router-dom';
+
 
 const MaintenancePlans = () => {
   const [plans, setPlans] = useState([]);
@@ -48,8 +49,8 @@ const MaintenancePlans = () => {
                 <button className="btn btn-info" onClick={() => navigate(`/tasks/${plan.planId}`)}>View Tasks</button>
               </td>
               <td>
-                <button className="btn btn-warning" onClick={() => navigate(`/update-maintenance/${plan.planId}`)}>Update</button>
-                <button className="btn btn-danger" onClick={() => handleDelete(plan.planId)}>Delete</button>
+                <button className="btn btn-warning btn-sm me-2" onClick={() => navigate(`/update-maintenance/${plan.planId}`)}>Update</button>
+                <button className="btn btn-danger btn-sm" onClick={() => handleDelete(plan.planId)}>Delete</button>
               </td>
             </tr>
           ))}
