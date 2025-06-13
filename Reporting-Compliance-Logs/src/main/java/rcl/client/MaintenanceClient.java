@@ -9,7 +9,7 @@ import rcl.dto.MaintenancePlanDTO;
 @FeignClient(name="Maintenance-Schedule-Configuration")
 public interface MaintenanceClient {
 	
-	@GetMapping("/api/maintenance-plans/{id}")
-	MaintenancePlanDTO getMaintenancePlan(@PathVariable("id") Long planId);
+	@GetMapping("/api/maintenance-plans/{planId}")
+	MaintenancePlanDTO getMaintenancePlan(@PathVariable("planId") Long planId);
 
 }
