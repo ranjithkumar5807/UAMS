@@ -20,7 +20,6 @@ import msc.service.TaskService;
 import msc.serviceImpl.TaskServiceImpl;
 
 
-@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/maintenance-plans/tasks")
 public class TaskController {
@@ -33,8 +32,8 @@ public class TaskController {
         return taskService.addTaskToPlan(planId, task);
     }
 	
-	@GetMapping
-	public List<Task> getTasksByPlanId(@RequestParam Long planId) {
+	@GetMapping("/{planId}")
+	public List<Task> getTasksByPlanId(@PathVariable Long planId) {
         return taskService.getTasksByPlanId(planId);
     }
 	
@@ -43,8 +42,8 @@ public class TaskController {
         return taskService.updateTask(taskId, task);
     } 
 	
-	@DeleteMapping("/delete")
-    public void deleteMaintenanceTask(@RequestParam Long taskId) {
+	@DeleteMapping("/delete/{taskId}")
+    public void deleteMaintenanceTask(@PathVariable Long taskId) {
     	taskService.deleteTask(taskId);
     }
 }
