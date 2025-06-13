@@ -21,8 +21,8 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(csrf -> csrf.disable())
-//                .authorizeHttpRequests(requests -> requests.requestMatchers("api/assets/**").hasRole("admin")
-        		.authorizeHttpRequests(requests -> requests.requestMatchers("/api/reports/**").hasRole("admin")
+                .authorizeHttpRequests(requests -> requests.requestMatchers("api/reports/**").hasRole("admin")
+//        		.authorizeHttpRequests(requests -> requests.requestMatchers("/api/reports/**").permitAll()
                       .anyRequest()  .authenticated())
                 .sessionManagement(management -> management
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
