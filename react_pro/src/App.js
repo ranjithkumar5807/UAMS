@@ -18,12 +18,13 @@ import WorkOrderList from './components/WorkOrderList';
 import Navbar from './components/Navbar';
 
 import './axiosConfig';
-
+import ListLocationsComponent from './components/ListLocationsComponent';
 import TechnicianList from './components/TechnicianList';
 import AssignTechnicianForm from './components/AssignTechnicianForm';
 import AssignmentList from './components/AssignmentList';
 import Reporting from "./components/Reporting";
 import UpdateTask from './components/UpdateTask';
+import AddLocationComponent from './components/AddLocationComponent';
 
 function App() {
   return (
@@ -71,7 +72,8 @@ function App() {
          <Route path='/assets' element={<ListAssetsComponent/>}></Route>
         <Route path='/add-asset' element={<AssetComponent/>}></Route>
         <Route path='/update-asset/:assetId' element={<AssetComponent/>}></Route>
-        
+        <Route path='/locations' element={<ListLocationsComponent/>}></Route>
+ 
         <Route path="/maintenance" element={<MaintenancePlans />} />
         <Route path="/add-maintenance" element={<CreatePlan />} />
         <Route path="/tasks/:planId" element={<Tasklist />} />
@@ -89,7 +91,8 @@ function App() {
          
         <Route path="/update-task/:taskId" element={<UpdateTask />} />
 
-
+        <Route path="/add-location" element={<AddLocationComponent />} />
+ 
           <Route path='/workorder' element={<WorkOrderMainPage/>}></Route>
           <Route path='/workOrders' element={<WorkOrderList/>}></Route>
           <Route path='/addWorkOrder' element={<WorkOrderForm/>}></Route>

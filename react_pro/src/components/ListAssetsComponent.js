@@ -1,13 +1,14 @@
 import React,{useEffect, useState} from 'react'
 import {ListAssets} from '../services/AssetService'
 import { useNavigate } from 'react-router-dom'
-
+ 
 function ListAssetsComponent() {
      
 const [assets,setAssets]= useState([])
 const navigator= useNavigate();
 useEffect(()=>{
     ListAssets().then((response) =>{
+      console.log(response.data);
         setAssets(response.data);
     }).catch(error=>{
         console.error(error);
@@ -19,10 +20,14 @@ function addNewAsset(){
  function UpdateAsset(assetId){
   navigator(`/update-Asset/${assetId}`)
  }
+ function getLocation(){
+  navigator('/locations')
+ }
   return (
     <div className="container">
   <h2>list of assets</h2>
   <button className='btn btn-primary' onClick={addNewAsset}>add asset</button>
+  <button className='btn btn-primary' onClick={getLocation}>location</button>
   <table className='table table-striped table-bordered'>
     <thead>
         <tr>
@@ -32,7 +37,7 @@ function addNewAsset(){
             <th>asset date</th>
             <th>asset status</th>
             <th>action</th>
-
+ 
            
         </tr>
     </thead>
@@ -56,5 +61,6 @@ function addNewAsset(){
     </div>
   )
 }
-
+ 
 export default ListAssetsComponent
+ 
