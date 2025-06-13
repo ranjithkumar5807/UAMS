@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; 
 
 const Tasklist = () => {
   const { planId } = useParams();
@@ -9,6 +10,7 @@ const Tasklist = () => {
   const [estimatedHours, setEstimatedHours] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     fetchTasks();
@@ -44,7 +46,8 @@ const Tasklist = () => {
 
   const handleUpdate = async (taskId) => {
     // You can navigate to an update form or open a modal
-    alert(`Update task with ID: ${taskId}`);
+    navigate(`/update-task/${taskId}`);
+
   };
   
   const handleDelete = async (taskId) => {

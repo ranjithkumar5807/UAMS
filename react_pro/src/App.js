@@ -15,6 +15,7 @@ import WorkLogForm from './components/WorkLogForm';
 import WorkLogList from './components/WorkLogList';
 import WorkOrderForm from './components/WorkOrderForm';
 import WorkOrderList from './components/WorkOrderList';
+import Navbar from './components/Navbar';
 
 import './axiosConfig';
 
@@ -22,51 +23,14 @@ import TechnicianList from './components/TechnicianList';
 import AssignTechnicianForm from './components/AssignTechnicianForm';
 import AssignmentList from './components/AssignmentList';
 import Reporting from "./components/Reporting";
+import UpdateTask from './components/UpdateTask';
+
 function App() {
   return (
     <>
     <BrowserRouter>
-   
+
 {/* <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow sticky-top">
-  <div class="container-fluid d-flex justify-content-between align-items-center">
-    <a class="navbar-brand fw-bold text-uppercase" href="/">Home</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex flex-row gap-3">
-        <li class="nav-item">
-          <a class="nav-link" href="/assets">Assets</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/maintenance">Maintenance</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/workorder">Work Order</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/technicians">Technicians</a>
-        <a class="nav-link" href="/assign">Assign</a>
-        <a class="nav-link" href="/assignments">Assignments</a>
-        </li>
-        <li class="nav-item" style={{marginRight:'580px'}}>
-          <a class="nav-link" href="/report">Report</a>
-        </li>
-        <li>
-        <a class="nav-link" href="/login">
-        <button className='btn btn-warning'>Login</button>
-        </a>
-        </li>
-      </ul>
-      
-      </div>
-    </div>
- 
-</nav> */}
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow sticky-top">
   <div class="container-fluid">
    
     <a class="navbar-brand fw-bold text-uppercase" href="/">Home</a>
@@ -97,11 +61,12 @@ function App() {
       </a>
     </div>
   </div>
-</nav>
+</nav> */}
 
 
-
+      <Navbar/>
      <Routes>
+          
          <Route path='/' element={<HomePage/>}></Route>
          <Route path='/assets' element={<ListAssetsComponent/>}></Route>
         <Route path='/add-asset' element={<AssetComponent/>}></Route>
@@ -112,8 +77,8 @@ function App() {
         <Route path="/tasks/:planId" element={<Tasklist />} />
         <Route path="/update-maintenance/:planId" element={<UpdateMaintenancePlan />} />
         {/* <Route path='/update-maintainencePlan/:planId' element={<CreatePlan/>}></Route> */}
-
-
+          
+          
          {/* <Route path='/workorder' element={<ListAssetsComponent/>}></Route> */}
          
          <Route path='/report' element={<Reporting/>}></Route> 
@@ -122,6 +87,8 @@ function App() {
          <Route path='/register' element={<Register/>}></Route>
         
          
+        <Route path="/update-task/:taskId" element={<UpdateTask />} />
+
 
           <Route path='/workorder' element={<WorkOrderMainPage/>}></Route>
           <Route path='/workOrders' element={<WorkOrderList/>}></Route>
