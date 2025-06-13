@@ -20,20 +20,42 @@ const Reporting = () => {
     };
 
     // Common function to handle API calls and update state
+    // const fetchData = async (apiCall, successCallback) => {
+    //     setLoading(true);
+    //     setAlertMessage(''); // Clear previous alert
+    //     try {
+    //         const data = await apiCall();
+    //         successCallback(data);
+    //         handleAlert('success', 'Report generated successfully!');
+    //     } catch (err) {
+    //         handleAlert('danger', err.message || 'Failed to generate report.');
+    //         successCallback(null); // Clear previous report data on error
+    //     } finally {
+    //         setLoading(false);
+    //     }
+    // };
     const fetchData = async (apiCall, successCallback) => {
         setLoading(true);
-        setAlertMessage(''); // Clear previous alert
+        setAlertMessage('');
         try {
             const data = await apiCall();
             successCallback(data);
             handleAlert('success', 'Report generated successfully!');
         } catch (err) {
-            handleAlert('danger', err.message || 'Failed to generate report.');
-            successCallback(null); // Clear previous report data on error
+            let message = 'Failed to generate report.';
+            console.log(err.response.data)
+            if (err.response && err.response.data) {
+                message = err.response.data.message || message;
+            } else if (err.message) {
+                message = err.message;
+            }
+            handleAlert('danger', message);
+            successCallback(null);
         } finally {
             setLoading(false);
         }
     };
+    
 
     return (
         <div className="container py-3">
